@@ -1,0 +1,58 @@
+.content {
+  margin-top: 10%;
+  padding: 10px;
+}
+
+.footer {
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  width: 100%;
+}
+
+#front {
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#row {
+  margin-top: 5%;
+}
+
+#login {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  vertical-align: -webkit-baseline-middle;
+  margin-top: 10%;
+  padding-top: 10%;
+  padding-bottom: 7%;
+  width: 100%;
+  margin-bottom: -10;
+  margin-top: 3%;
+  background-position: center;
+  background-size: cover;
+}
+
+#signup {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  vertical-align: -webkit-baseline-middle;
+  margin-top: 10%;
+  padding-top: 3%;
+  padding-bottom: 7%;
+  width: 100%;
+  margin-top: 3%;
+  background-position: center;
+  background-size: cover;
+}
+
+#logo {
+  width: 50px;
+}
