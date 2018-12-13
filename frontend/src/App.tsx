@@ -14,7 +14,7 @@ class App extends React.Component {
           <React.Fragment>
             <Router>
               <React.Fragment>
-                <LoginRoute />
+                {/* <LoginRoute /> */}
                 <HomeRoute />
                 <JobFormRoute />
               </React.Fragment>
