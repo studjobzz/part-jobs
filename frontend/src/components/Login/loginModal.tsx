@@ -11,7 +11,9 @@ import {
   ModalHeader,
   ModalFooter,
   Input,
-  Icon
+  Icon,
+  Tooltip,
+  Fa
 } from "mdbreact";
 
 interface Props {
@@ -34,7 +36,7 @@ const initialState: State = {
   logged: true
 };
 
-class ModalPage extends React.Component<Props, State> {
+export class ModalPage extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = initialState;
@@ -68,6 +70,10 @@ class ModalPage extends React.Component<Props, State> {
       new UserViewModel("", "", this.state.username, this.state.password, ""),
       this.loadUser.bind(this)
     );
+  }
+
+  private useForPresent(): void {
+    window.location.href = "/user-home";
   }
 
   private changeUsername(e: any): void {
@@ -124,6 +130,7 @@ class ModalPage extends React.Component<Props, State> {
               validate
               onChange={this.changePassword.bind(this)}
             />
+
             {/* </form> */}
           </ModalBody>
           {this.state.logged ? (
@@ -132,7 +139,8 @@ class ModalPage extends React.Component<Props, State> {
             this.errorMessage("Invalid email or password!")
           )}
           <ModalFooter className="justify-content-center">
-            <Button onClick={this.handleUserLogin.bind(this)}>Login</Button>
+            {/* <Button onClick={this.handleUserLogin.bind(this)}>Login</Button> */}
+            <Button onClick={this.useForPresent.bind(this)}>Login</Button>
           </ModalFooter>
         </Modal>
 
@@ -145,33 +153,31 @@ class ModalPage extends React.Component<Props, State> {
             Sign up
           </ModalHeader>
           <ModalBody>
-            <form className="mx-3 grey-text">
-              <Input
-                icon="user"
-                label="Your name"
-                group
-                type="text"
-                validate
-                error="wrong"
-                success="right"
-              />
-              <Input
-                label="Your email"
-                icon="envelope"
-                group
-                type="email"
-                validate
-                error="wrong"
-                success="right"
-              />
-              <Input
-                label="Your password"
-                icon="lock"
-                group
-                type="password"
-                validate
-              />
-            </form>
+            <Input
+              icon="user"
+              label="Your name"
+              group
+              type="text"
+              validate
+              error="wrong"
+              success="right"
+            />
+            <Input
+              label="Your email"
+              icon="envelope"
+              group
+              type="email"
+              validate
+              error="wrong"
+              success="right"
+            />
+            <Input
+              label="Your password"
+              icon="lock"
+              group
+              type="password"
+              validate
+            />
           </ModalBody>
           <ModalFooter className="justify-content-center">
             <Button color="deep-orange" onClick={() => this.toggle(2)}>

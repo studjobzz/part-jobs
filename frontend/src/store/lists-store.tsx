@@ -7,36 +7,61 @@ import ListsApiInstance, {
 export class ListsStore {
   private listsApi: ListsApiService;
   @observable
-  lists: ListViewModel[] = [];
+  lists: ListViewModel;
   @observable
-  activeList: ListViewModel;
+  activeList: ListViewModel = new ListViewModel({
+    id: 1,
+    name: "first",
+    description: "easy",
+    jobs: [
+      { id: 1, name: "Software developer", description: "ASP.net" },
+      { id: 2, name: "Q&A", description: "Normal" },
+      { id: 3, name: "Inginer Constructii", description: "Blocuri" },
+      { id: 4, name: "Zara coach", description: "Suits" },
+      { id: 5, name: "Q&A", description: "Normal" },
+      { id: 6, name: "Laptop", description: "Husa" },
+      { id: 7, name: "Software", description: "Phyton" },
+      { id: 8, name: "George", description: "Boss" },
+      { id: 9, name: "Ionut", description: "Jmeck" }
+    ]
+  });
 
   constructor(listsApi: ListsApiService) {
     this.listsApi = listsApi;
     this.activeList = {
-      id: 0,
-      name: "",
-      description: "",
-      jobs: []
+      id: 1,
+      name: "first",
+      description: "easy",
+      jobs: [
+        { id: 1, name: "Software developer", description: "ASP.net" },
+        { id: 2, name: "Q&A", description: "Normal" },
+        { id: 3, name: "Inginer Constructii", description: "Blocuri" },
+        { id: 4, name: "Zara coach", description: "Suits" },
+        { id: 5, name: "Q&A", description: "Normal" },
+        { id: 6, name: "Laptop", description: "Husa" },
+        { id: 7, name: "Software", description: "Phyton" },
+        { id: 8, name: "George", description: "Boss" },
+        { id: 9, name: "Ionut", description: "Jmeck" }
+      ]
     };
   }
 
   @action
-  loadLists(callback?: Function) {
+  loadList(callback?: Function) {
     debugger;
-    this.listsApi
-      .getLists()
-      .then(data => (this.lists = data.map(list => new ListViewModel(list))))
-      .then(() => {
-        if (callback != undefined) {
-          callback();
-        }
-      });
+    // this.listsApi
+    //   .getLists()
+    //   .then(data => (this.lists = new ListViewModel(data)))
+    //   .then(() => {
+    //     if (callback != undefined) {
+    //       callback();
+    //     }
+    //   });
   }
 
   @computed
-  get getLists(): ListViewModel[] {
-    return this.lists;
+  get getList(): ListViewModel {
+    return this.activeList;
   }
 }
 
