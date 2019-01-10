@@ -6,9 +6,11 @@ import { ListsStore } from "../../store/lists-store";
 import NavbarPage from "../NavBar/NavbarPage";
 import FooterPage from "../FooterPage/FooterPage";
 import Content from "../AllJobs/Content";
+import { UserStore } from "src/store/UserStore";
 
 interface Props {
   listsStore: ListsStore;
+  userStore: UserStore;
 }
 
 interface State {
@@ -35,6 +37,7 @@ const initialState: State = {
 };
 
 @inject("listsStore")
+@inject("userStore")
 @observer
 export class Home extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -48,7 +51,7 @@ export class Home extends React.Component<Props, State> {
   render(): React.ReactNode {
     return (
       <div className="list-items">
-        <NavbarPage />
+        <NavbarPage userStore={this.props.userStore} />
         <Content jobs={this.state.allLists.jobs} />
         <FooterPage />
       </div>
