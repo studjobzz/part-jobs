@@ -1,5 +1,8 @@
 import * as React from "react";
-import { UserViewModel } from "../../view-models/UserViewModel";
+import {
+  UserViewModel,
+  LoginUserViewModel
+} from "../../view-models/UserViewModel";
 import { UserStore } from "../../store/UserStore";
 import { observer, inject } from "mobx-react";
 
@@ -25,6 +28,9 @@ interface State {
   modal2: boolean;
   username: string;
   password: string;
+  firstName: string;
+  lastName: string;
+  email: string;
   logged: boolean;
 }
 
@@ -33,6 +39,9 @@ const initialState: State = {
   modal2: false,
   username: "",
   password: "",
+  firstName: "",
+  lastName: "",
+  email: "",
   logged: true
 };
 
@@ -51,23 +60,20 @@ export class ModalPage extends React.Component<Props, State> {
   };
 
   private loadUser(): void {
-    if (this.props.userStore.user.tokenGuid == null) {
+    if (this.props.userStore.user.access == null) {
       this.setState({ logged: false });
       return;
     } else {
       this.setState({ logged: true });
-      localStorage.setItem("logged", this.props.userStore.user.tokenGuid);
+      localStorage.setItem("logged", this.props.userStore.user.access);
     }
     localStorage.setItem("user", JSON.stringify(this.props.userStore.user));
-    window.location.href = "/";
+    window.location.href = "/user-home";
   }
 
   private handleUserLogin(): void {
-    debugger;
-    console.log(this.state, "this is state");
-    console.log(this.props, "this is props");
     this.props.userStore.logIn(
-      new UserViewModel("", "", this.state.username, this.state.password, ""),
+      new LoginUserViewModel(this.state.username, this.state.password),
       this.loadUser.bind(this)
     );
   }
@@ -140,7 +146,7 @@ export class ModalPage extends React.Component<Props, State> {
           )}
           <ModalFooter className="justify-content-center">
             {/* <Button onClick={this.handleUserLogin.bind(this)}>Login</Button> */}
-            <Button onClick={this.useForPresent.bind(this)}>Login</Button>
+            <Button onClick={this.handleUserLogin.bind(this)}>Login</Button>
           </ModalFooter>
         </Modal>
 

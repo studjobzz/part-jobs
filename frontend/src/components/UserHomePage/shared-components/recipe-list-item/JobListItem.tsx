@@ -58,7 +58,7 @@ export class JobListItem extends React.Component<Props, State> {
   }
 
   handleClick(job: JobViewModel) {
-    this.setState({ redirectTo: "/job/" + job.id });
+    this.setState({ redirectTo: "/job/" + job.pk });
   }
 
   handleRedirect(): React.ReactNode {
@@ -85,7 +85,7 @@ export class JobListItem extends React.Component<Props, State> {
               src="https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2821%29.jpg"
             />
           </div>
-          <div className="summary_field">{this.props.job.name}</div>
+          <div className="summary_field">{this.props.job.title}</div>
           {/* <div className="rating-comp">
             <StarRatingComponent
               name="rating"
@@ -106,7 +106,7 @@ export class JobListItem extends React.Component<Props, State> {
           >
             <img className="shopping-cart" src="/cart.png" />
           </button>
-          {this.props.job.name ? (
+          {this.props.job.title ? (
             <div>
               <button
                 type="button"
@@ -122,7 +122,7 @@ export class JobListItem extends React.Component<Props, State> {
               >
                 <div>
                   <div className="bp3-dialog-body">
-                    {this.props.job.name +
+                    {this.props.job.title +
                       " " +
                       "has been removed to favorites!"}
                   </div>
@@ -156,7 +156,9 @@ export class JobListItem extends React.Component<Props, State> {
               >
                 <div>
                   <div className="bp3-dialog-body">
-                    {this.props.job.name + " " + "has been added to favorites!"}
+                    {this.props.job.title +
+                      " " +
+                      "has been added to favorites!"}
                   </div>
                   <Button className="bp3-button" onClick={this.handleClose}>
                     Undo

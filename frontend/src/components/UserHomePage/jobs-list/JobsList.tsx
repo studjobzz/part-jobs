@@ -41,12 +41,12 @@ export class JobsList extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = initialState;
-    // this.props.listStore.loadList(() =>
-    //   this.setState({
-    //     jobs: this.props.listStore.activeList.jobs,
-    //     dataWasReceived: true
-    //   })
-    // );
+    this.props.listsStore.loadList(() =>
+      this.setState({
+        jobs: this.props.listsStore.activeList,
+        dataWasReceived: true
+      })
+    );
   }
   newListOfRecipes: JobViewModel[] = [];
 
@@ -99,7 +99,7 @@ export class JobsList extends React.Component<Props, State> {
     if (this.state.filter.category) {
       return jobs.filter(job => {
         var categoryIsFound = false;
-        if (job.name == this.state.filter.category) {
+        if (job.title == this.state.filter.category) {
           categoryIsFound = true;
         }
         return categoryIsFound;
@@ -109,7 +109,7 @@ export class JobsList extends React.Component<Props, State> {
   }
 
   getRecipiesItems(): JobViewModel[] {
-    let result = this.props.listsStore.activeList.jobs;
+    let result = this.props.listsStore.activeList;
     result = this.filterByCategory(this.filterByDifficulty(result));
     return result;
   }
@@ -120,7 +120,7 @@ export class JobsList extends React.Component<Props, State> {
       this.handleRedirect() || (
         <div className="list-all">
           <JobListFilters
-            jobs={this.props.listsStore.activeList.jobs}
+            jobs={this.props.listsStore.activeList}
             handleSearchDifficulty={this.handleFilterByDifficulty.bind(this)}
             handleFilterByCategory={this.handleFilterByCategory.bind(this)}
             // handleRecipesToOmit={this.handleRecipesToOmit.bind(this)}

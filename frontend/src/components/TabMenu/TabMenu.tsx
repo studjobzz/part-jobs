@@ -84,14 +84,16 @@ class TabMenu extends React.Component<Props, State> {
     //   var user: any = JSON.parse(userJson);
     // }
     // const currentUser = new UserViewModel(
-    //   user.firstName,
-    //   user.lastName,
+    //   user.first_name,
+    //   user.last_name,
     //   user.email,
     //   user.password,
     //   user.tokenGuid
     // );
-    // return "Serus " + currentUser.firstName + " " + currentUser.lastName;
-    return "Serus";
+    // return (
+    //   "Hello, " + currentUser.first_name + " " + currentUser.last_name + "!"
+    // );
+    return "Hello, Alex Moldovan!";
   }
 
   public render() {

@@ -1,31 +1,45 @@
 import { observable, action } from "mobx";
 
+export class LoginUserViewModel {
+  @observable
+  public username: string;
+  @observable
+  public password: string;
+
+  constructor(username: string, password: string) {
+    this.username = username;
+    this.password = password;
+  }
+}
+
 export class UserViewModel {
   @observable
   public id: number;
   @observable
-  public firstName: string;
+  public username: string;
   @observable
-  public lastName: string;
+  public first_name: string;
+  @observable
+  public last_name: string;
   @observable
   public email: string;
   @observable
   public password: string;
   @observable
-  public tokenGuid: string;
+  public access: string;
 
   constructor(
     firstName: string,
     lastName: string,
     email: string,
     password: string,
-    tokenGuid: string
+    access: string
   ) {
-    this.firstName = firstName;
-    this.lastName = lastName;
+    this.first_name = firstName;
+    this.last_name = lastName;
     this.email = email;
     this.password = password;
-    this.tokenGuid = tokenGuid;
+    this.access = access;
   }
 }
 
@@ -33,9 +47,11 @@ export class UserCommandViewModel {
   @observable
   public id: number;
   @observable
-  public firstName: string;
+  public first_name: string;
   @observable
-  public lastName: string;
+  public last_name: string;
+  @observable
+  public username: string;
   @observable
   public email: string;
   @observable
@@ -47,8 +63,8 @@ export class UserCommandViewModel {
 
   constructor(user: any) {
     this.id = user.id;
-    this.firstName = user.firstName;
-    this.lastName = user.lastName;
+    this.first_name = user.first_name;
+    this.last_name = user.last_name;
     this.email = user.email;
     this.oldPassword = user.oldPassword;
     this.newPassword = user.newPassword;

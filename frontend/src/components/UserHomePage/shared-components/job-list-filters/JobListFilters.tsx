@@ -41,8 +41,8 @@ export class JobListFilters extends React.Component<Props> {
   private searchThroughRecipes(name: string) {
     let recipesIdOmitFilter: number[] = [];
     this.props.jobs.forEach(recipe => {
-      if (!recipe.name.toLowerCase().includes(name.toLowerCase())) {
-        recipesIdOmitFilter.push(recipe.id);
+      if (!recipe.title.toLowerCase().includes(name.toLowerCase())) {
+        recipesIdOmitFilter.push(recipe.pk);
       }
     });
     this.setState({ recipesIdOmitFilter: recipesIdOmitFilter });

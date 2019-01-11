@@ -4,7 +4,8 @@ import UserApiInstance, {
 } from "./api-services/user-api.service";
 import {
   UserCommandViewModel,
-  UserViewModel
+  UserViewModel,
+  LoginUserViewModel
 } from "../view-models/UserViewModel";
 
 export class UserStore {
@@ -27,7 +28,6 @@ export class UserStore {
 
   @action
   public logIn(user: any, loadedUserCallback: Function) {
-    debugger;
     this.userApi.logIn(user).then(data => {
       this.user = data;
       loadedUserCallback(data);

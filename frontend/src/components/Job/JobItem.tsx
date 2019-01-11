@@ -9,6 +9,7 @@ import {
   Col,
   Fa
 } from "mdbreact";
+
 import { JobViewModel } from "src/view-models/job";
 
 interface Props {
@@ -30,8 +31,9 @@ export class Job extends React.Component<Props, State> {
         <Col style={{ maxWidth: "22rem" }}>
           <Card>
             <CardImage
+              className="image"
               top
-              src="https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2821%29.jpg"
+              src={this.props.job.image}
               overlay="white-slight"
               hover
               waves
@@ -41,7 +43,7 @@ export class Job extends React.Component<Props, State> {
               <a href="#!" className="activator waves-effect waves-light mr-4">
                 <Fa icon="share-alt" />
               </a>
-              <CardTitle>{this.props.job.name}</CardTitle>
+              <CardTitle>{this.props.job.title}</CardTitle>
               <hr className="hr-light" />
               <CardText className="white-text">
                 {this.props.job.description}

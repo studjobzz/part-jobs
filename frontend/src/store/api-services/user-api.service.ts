@@ -1,6 +1,7 @@
 import {
   UserCommandViewModel,
-  UserViewModel
+  UserViewModel,
+  LoginUserViewModel
 } from "./../../view-models/UserViewModel";
 
 const POST_HEADERS = {
@@ -26,13 +27,14 @@ export class UserApiService {
     fetch("/api/User/Register", header);
   }
 
-  logIn(user: UserViewModel): Promise<UserViewModel> {
+  logIn(user: LoginUserViewModel): Promise<UserViewModel> {
+    debugger;
     let header: RequestInit = {
       ...POST_HEADERS,
       body: JSON.stringify(user)
     };
 
-    return fetch("http://local.com:8000/users/1/", header)
+    return fetch("http://localhost:8000/api/token/", header)
       .then(response => response.json())
       .then(data => data);
   }

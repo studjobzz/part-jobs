@@ -30,7 +30,7 @@ class Welcome extends React.Component<Props, State> {
     this.state = initialState;
   }
 
-  private handleClickEvent(): any {
+  private handleClickLogOut(): any {
     // localStorage.setItem("logged", "");
     // var nullCheck = localStorage.getItem("user");
     // if (nullCheck == null) {
@@ -76,7 +76,7 @@ class Welcome extends React.Component<Props, State> {
               <MenuItem
                 text="Log out"
                 icon="log-out"
-                onClick={this.handleClickEvent.bind(this)}
+                onClick={this.handleClickLogOut.bind(this)}
               />
             </Menu>
           }

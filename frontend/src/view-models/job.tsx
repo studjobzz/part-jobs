@@ -2,15 +2,18 @@ import { observable } from "mobx";
 
 export class JobViewModel {
   @observable
-  public id: number;
+  public pk: number;
   @observable
-  public name: string;
+  public title: string;
   @observable
   public description: string;
+  @observable
+  public image: string;
 
   constructor(item: any) {
-    this.id = item.id;
-    this.name = item.name;
+    this.pk = item.pk;
+    this.title = item.title;
     this.description = item.description;
+    this.image = item.image;
   }
 }
