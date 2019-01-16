@@ -1,6 +1,7 @@
 import * as React from "react";
 import { observer, inject } from "mobx-react";
 import { JobViewModel } from "src/view-models/job";
+import { UserViewModel } from "src/view-models/UserViewModel";
 import {
   MDBContainer,
   MDBRow,
@@ -10,65 +11,50 @@ import {
   MDBCardHeader,
   MDBInput,
   MDBBtn,
-  MDBIcon
+  MDBIcon,
+  MDBModalFooter
 } from "mdbreact";
 
 interface Props {
   jobSelected: JobViewModel;
+  userLogged: UserViewModel;
 }
 
-interface State {}
+interface State {
+  title: string,
+  city: string
+  description: string
+}
 
-const states = [
-  "Alba",
-  "Arad",
-  "Arges",
-  "Bacau",
-  "Bihor",
-  "Bistrita Nasaud",
-  "Botosani",
-  "Braila",
-  "Brasov",
-  "Bucuresti",
-  "Buzau",
-  "Calarasi",
-  "Caras Severin",
-  "Cluj",
-  "Constanta",
-  "Covasna",
-  "Dambovita",
-  "Dolj",
-  "Galati",
-  "Giurgiu",
-  "Gorj",
-  "Harghita",
-  "Hunedoara",
-  "Ialomita",
-  "Iasi",
-  "Ilfov",
-  "Maramures",
-  "Mehedinti",
-  "Mures",
-  "Neamt",
-  "Olt",
-  "Prahova",
-  "Salaj",
-  "Satu Mare",
-  "Sibiu",
-  "Suceava",
-  "Teleorman",
-  "Timis",
-  "Tulcea",
-  "Valcea",
-  "Vaslui",
-  "Vrancea"
-]
+const initialState: State = {
+  title: "",
+  city: "",
+  description: ""
+}
+
+
 
 @observer
 export class JobForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
+
   }
+
+  componentDidMount(){
+    //  this.props.jobSelected.
+  }
+
+  handleChangeTitle(event) {
+    this.setState({title : event.target.value});
+  }
+  handleChangeCity(event) {
+    this.setState({city : event.target.value});
+  }
+  handleChangeDescription(event) {
+    this.setState({description : event.target.value});
+  }
+
 
   render() {
     return(
@@ -81,13 +67,13 @@ export class JobForm extends React.Component<Props, State> {
                 <MDBCardBody className="mx-4">
                     <MDBCardHeader className = "form-header deep-blue-gradient rounded">
                         <h3 className="my-3">
-                            Register your job
+                            Creati un job
                         </h3>
                     </MDBCardHeader>
                     <form>
                       <div className="text-left gray-text">
                         <MDBInput
-                          label = "Job title"
+                          label = "Nume job"
                           size = "lg"
                           icon ="tag"
                           group
@@ -95,10 +81,12 @@ export class JobForm extends React.Component<Props, State> {
                           validate
                           error = "wrong"
                           success = "right"
+                          id = "titles"
+                          onChange={ this.handleChangeTitle }
                         />
 
                         <MDBInput
-                          label = "City"
+                          label = "Oras"
                           size = "lg"
                           icon ="home"
                           group
@@ -106,13 +94,15 @@ export class JobForm extends React.Component<Props, State> {
                           validate
                           error = "wrong"
                           success = "right"
+                          onChange={ this.handleChangeCity }
                         />
 
                         <MDBInput
                           type="textarea"
                           rows="6"
-                          label="Describe job/company"
+                          label="Descrieti jobul/compania"
                           icon="pencil"
+                          onChange={ this.handleChangeDescription }
                         />
 
                         <div className="text-center mt-4">
@@ -127,6 +117,13 @@ export class JobForm extends React.Component<Props, State> {
                       </div>
                     </div>
                   </form>
+
+                  <MDBModalFooter>
+                    <div className="font-weight-light">
+                      <p> Va rugam nu adaugati un job inexistent. Va vom bloca posibilitatea de a accesa acest site.</p>
+                      <p> Multumim!</p>
+                    </div>
+                  </MDBModalFooter>
                 </MDBCardBody>
               </MDBCard>
             </MDBCol>
