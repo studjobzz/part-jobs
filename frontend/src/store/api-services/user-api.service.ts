@@ -28,7 +28,6 @@ export class UserApiService {
   }
 
   logIn(user: LoginUserViewModel): Promise<UserViewModel> {
-    debugger;
     let header: RequestInit = {
       ...POST_HEADERS,
       body: JSON.stringify(user)

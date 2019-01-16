@@ -31,12 +31,6 @@ export class JobListItem extends React.Component<Props, State> {
     };
   }
 
-  // private handleAddShoppingCart(event: any) {
-  //   this.setState({
-  //     redirectTo: "/shoppingList/addRecipe/" + this.props.job.id
-  //   });
-  // }
-
   // private handleDeleteFavorites(event: any) {
   //   let updatedRecipe = this.props.recipe;
   //   updatedRecipe.favourite = false;
@@ -76,36 +70,9 @@ export class JobListItem extends React.Component<Props, State> {
       this.handleRedirect() || (
         <div className="list-item">
           <div onClick={() => this.handleClick(this.props.job)}>
-            {/* <MyIcon
-              src={this.props.recipe.iconName}
-              className="list-item-photo"
-            /> */}
-            <img
-              className="list-item-photo"
-              src="https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2821%29.jpg"
-            />
+            <img className="list-item-photo" src={this.props.job.image} />
           </div>
           <div className="summary_field">{this.props.job.title}</div>
-          {/* <div className="rating-comp">
-            <StarRatingComponent
-              name="rating"
-              editing={true}
-              starColor="#0D47A1"
-              renderStarIcon={() => <span className="heart" />}
-              starCount={5}
-              emptyStarColor="#D6D6D6"
-              // value={this.props.job.rating}
-              onStarClick={this.onStarClick.bind(this)}
-            />
-          </div> */}
-
-          <button
-            type="button"
-            className="recipe-all-button recipe-button-cart"
-            // onClick={this.handleAddShoppingCart.bind(this)}
-          >
-            <img className="shopping-cart" src="/cart.png" />
-          </button>
           {this.props.job.title ? (
             <div>
               <button

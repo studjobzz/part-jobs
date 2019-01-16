@@ -9,8 +9,8 @@ import { Redirect } from "react-router-dom";
 interface Props {
   jobs: JobViewModel[];
   // handleSetFavorites: Function;
+  jobsToOmit: number[];
   waitingForData: boolean;
-  // recipesToOmit: number[];
 }
 
 @observer
@@ -19,9 +19,9 @@ export class JobListView extends React.Component<Props> {
     super(props);
   }
 
-  // private recipeShouldBeOmittedAtRender(recipe) {
-  //   return this.props.recipesToOmit.find(id => recipe.id == id);
-  // }
+  private jobShouldBeOmittedAtRender(job: JobViewModel) {
+    return this.props.jobsToOmit.find(id => job.pk == id);
+  }
 
   render() {
     return (
@@ -29,7 +29,7 @@ export class JobListView extends React.Component<Props> {
         <div className="list-items">
           {/* <Spinner waitingForData={this.props.waitingForData} /> */}
           {this.props.jobs
-            // .filter(recipe => !this.recipeShouldBeOmittedAtRender(recipe))
+            .filter(job => !this.jobShouldBeOmittedAtRender(job))
             .map((job, index) => {
               return (
                 <div key={index}>

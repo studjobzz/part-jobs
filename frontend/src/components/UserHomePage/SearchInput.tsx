@@ -11,7 +11,7 @@ interface State {
 }
 
 const initialState: State = {
-  searchFieldPlaceholder: "Search...",
+  searchFieldPlaceholder: "Search by name...",
   searchString: ""
 };
 

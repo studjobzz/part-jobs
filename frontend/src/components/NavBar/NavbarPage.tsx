@@ -40,7 +40,6 @@ class NavbarPage extends React.Component<Props, State> {
 
   render() {
     return (
-      //<Routes>
       <Navbar
         className="navbar"
         color="light-blue lighten-2"
@@ -48,21 +47,17 @@ class NavbarPage extends React.Component<Props, State> {
         expand="md"
         fixed="top"
       >
-        {/* <NavbarBrand>
-          {/* <NavLink to="!#"> */}
-        {/* </NavLink> */}
-        {/* </NavbarBrand> */}
         <NavbarToggler onClick={this.state.isOpen} />
         <Collapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
           <NavbarNav left>
             <NavItem active>
-              <NavLink to="/jobs/add">Home</NavLink>
+              <NavLink to="/">Home</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="/jobs/add">Features</NavLink>
+              <NavLink to="/">Features</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="/jobs/add">Pricing</NavLink>
+              <NavLink to="/">Pricing</NavLink>
             </NavItem>
             <NavItem>
               <Dropdown>

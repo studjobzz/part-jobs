@@ -54,9 +54,9 @@ export class JobsList extends React.Component<Props, State> {
     this.props.viewStore.changeActiveHeaderTab(HeaderTabs.userHome);
   }
 
-  // handleRecipesToOmit(recipesToOmit: number[]) {
-  //   this.setState({ recipesToOmit: recipesToOmit });
-  // }
+  handleJobsToOmit(jobsToOmit: number[]) {
+    this.setState({ jobsToOmit: jobsToOmit });
+  }
 
   // handleClick(recipe: RecipeViewModel) {
   //   this.setState({ redirectTo: "/recipes/edit/" + recipe.id });
@@ -123,11 +123,11 @@ export class JobsList extends React.Component<Props, State> {
             jobs={this.props.listsStore.activeList}
             handleSearchDifficulty={this.handleFilterByDifficulty.bind(this)}
             handleFilterByCategory={this.handleFilterByCategory.bind(this)}
-            // handleRecipesToOmit={this.handleRecipesToOmit.bind(this)}
+            handleJobsToOmit={this.handleJobsToOmit.bind(this)}
           />
           <JobListView
             jobs={this.getRecipiesItems.bind(this)()}
-            // recipesToOmit={this.state.recipesToOmit}
+            jobsToOmit={this.state.jobsToOmit}
             // handleSetFavorites={this.handleSetFavorites.bind(this)}
             waitingForData={!this.state.dataWasReceived}
           />

@@ -6,17 +6,17 @@ import { JobViewModel } from "src/view-models/job";
 
 interface Props {
   jobs: JobViewModel[];
-  // handleRecipesToOmit: Function;
+  handleJobsToOmit: Function;
   handleSearchDifficulty: Function;
   handleFilterByCategory: Function;
 }
 
 interface State {
-  recipesIdOmitFilter: number[];
+  jobsIdOmitFilter: number[];
 }
 
 const initialState: State = {
-  recipesIdOmitFilter: []
+  jobsIdOmitFilter: []
 };
 
 @observer
@@ -35,18 +35,19 @@ export class JobListFilters extends React.Component<Props> {
   }
 
   private handleSearchKeyword(searchString: string) {
+    debugger;
     this.searchThroughRecipes(searchString);
   }
 
   private searchThroughRecipes(name: string) {
-    let recipesIdOmitFilter: number[] = [];
-    this.props.jobs.forEach(recipe => {
-      if (!recipe.title.toLowerCase().includes(name.toLowerCase())) {
-        recipesIdOmitFilter.push(recipe.pk);
+    let jobsIdOmitFilter: number[] = [];
+    this.props.jobs.forEach(job => {
+      if (!job.title.toLowerCase().includes(name.toLowerCase())) {
+        jobsIdOmitFilter.push(job.pk);
       }
     });
-    this.setState({ recipesIdOmitFilter: recipesIdOmitFilter });
-    // this.props.handleRecipesToOmit(recipesIdOmitFilter);
+    this.setState({ jobsIdOmitFilter: jobsIdOmitFilter });
+    this.props.handleJobsToOmit(jobsIdOmitFilter);
   }
 
   render() {
@@ -75,7 +76,7 @@ export class JobListFilters extends React.Component<Props> {
             <option value="dessert">Dessert</option>
             <option value="drink">Drink</option>
           </select>
-          <select
+          {/* <select
             className="selects select_search filter-common"
             onChange={this.handleFilterByDifficulty.bind(this)}
           >
@@ -86,7 +87,7 @@ export class JobListFilters extends React.Component<Props> {
             <option value="Easy">Easy</option>
             <option value="Medium">Medium</option>
             <option value="High">High</option>
-          </select>
+          </select> */}
         </div>
       </React.Fragment>
     );

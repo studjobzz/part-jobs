@@ -31,22 +31,23 @@ class Welcome extends React.Component<Props, State> {
   }
 
   private handleClickLogOut(): any {
-    // localStorage.setItem("logged", "");
-    // var nullCheck = localStorage.getItem("user");
-    // if (nullCheck == null) {
-    // } else {
-    //   var user: any = JSON.parse(nullCheck);
-    // }
-    // const currentUser = new UserViewModel(
-    //   user.firstName,
-    //   user.lastName,
-    //   user.email,
-    //   user.password,
-    //   user.tokenGuid
-    // );
-    // this.props.userStore.logOut(currentUser);
-    // this.props.updateState();
-    // localStorage.setItem("user", JSON.stringify(""));
+    debugger;
+    localStorage.setItem("logged", "");
+    var nullCheck = localStorage.getItem("user");
+    if (nullCheck == null) {
+    } else {
+      var user: any = JSON.parse(nullCheck);
+    }
+    const currentUser = new UserViewModel(
+      user.firs_name,
+      user.last_name,
+      user.email,
+      user.password,
+      user.access
+    );
+    this.props.userStore.logOut(currentUser);
+    this.props.updateState();
+    localStorage.setItem("user", JSON.stringify(""));
     window.location.href = "/home";
   }
 

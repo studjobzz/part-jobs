@@ -3,9 +3,10 @@ import "./App.css";
 import rootStore from "./store/root-store";
 import { Provider } from "mobx-react";
 import { BrowserRouter as Router } from "react-router-dom";
-import JobFormRoute from "./components/JobForm";
 import HomeRoute from "./components/Home";
 import UserHomePageRoute from "./components/UserHomePage/jobs-list";
+import UserCvPageRoute from "./components/UserHomePage/cv";
+import UserCareerPageRoute from "./components/UserHomePage/career";
 import TabMenu from "./components/TabMenu/TabMenu";
 
 interface State {
@@ -32,9 +33,9 @@ class App extends React.Component<{}, State> {
                   userStore={rootStore.userStore}
                 />
                 <HomeRoute />
-                <JobFormRoute />
                 <UserHomePageRoute />
-                {/* <UserTabMenuRoute /> */}
+                <UserCvPageRoute />
+                <UserCareerPageRoute />
               </React.Fragment>
             </Router>
           </React.Fragment>

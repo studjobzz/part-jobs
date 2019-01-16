@@ -78,10 +78,6 @@ export class ModalPage extends React.Component<Props, State> {
     );
   }
 
-  private useForPresent(): void {
-    window.location.href = "/user-home";
-  }
-
   private changeUsername(e: any): void {
     this.setState({ username: e.target.value });
   }
