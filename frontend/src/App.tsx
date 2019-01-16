@@ -6,8 +6,10 @@ import { BrowserRouter as Router } from "react-router-dom";
 import HomeRoute from "./components/Home";
 import UserHomePageRoute from "./components/UserHomePage/jobs-list";
 import UserCvPageRoute from "./components/UserHomePage/cv";
-import UserCareerPageRoute from "./components/UserHomePage/career";
+import AddJobPageRoute from "./components/JobForm";
 import TabMenu from "./components/TabMenu/TabMenu";
+import AccountDetailsPageRoute from "./components/welcome/account-details";
+import AccountDetailsEditPageRoute from "./components/welcome/account-details-edit";
 
 interface State {
   logged: any;
@@ -35,7 +37,9 @@ class App extends React.Component<{}, State> {
                 <HomeRoute />
                 <UserHomePageRoute />
                 <UserCvPageRoute />
-                <UserCareerPageRoute />
+                <AddJobPageRoute />
+                <AccountDetailsPageRoute />
+                <AccountDetailsEditPageRoute />
               </React.Fragment>
             </Router>
           </React.Fragment>

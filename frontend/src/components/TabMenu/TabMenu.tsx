@@ -127,11 +127,11 @@ class TabMenu extends React.Component<Props, State> {
               })}
             >
               <Link
-                to="/user-career"
+                to="/add-job"
                 onClick={() => this.changeActiveTab(HeaderTabs.career)}
               >
                 <Icon className="icon-ingredients-list" icon="annotation" />
-                CARIERĂ
+                ADD JOB
               </Link>
             </li>
             {/* <li
