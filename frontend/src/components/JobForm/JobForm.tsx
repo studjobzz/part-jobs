@@ -38,15 +38,11 @@ const initialState: State = {
 export class JobForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-
-  }
-
-  componentDidMount(){
-    //  this.props.jobSelected.
+    this.state = initialState;
   }
 
   handleChangeTitle(event) {
-    this.setState({title : event.target.value});
+    this.setState({title: event.target.value});
   }
   handleChangeCity(event) {
     this.setState({city : event.target.value});
@@ -67,7 +63,7 @@ export class JobForm extends React.Component<Props, State> {
                 <MDBCardBody className="mx-4">
                     <MDBCardHeader className = "form-header deep-blue-gradient rounded">
                         <h3 className="my-3">
-                            Creati un job
+                            Adauga un job
                         </h3>
                     </MDBCardHeader>
                     <form>
@@ -81,8 +77,7 @@ export class JobForm extends React.Component<Props, State> {
                           validate
                           error = "wrong"
                           success = "right"
-                          id = "titles"
-                          onChange={ this.handleChangeTitle }
+                          onChange={ this.handleChangeTitle.bind(this) }
                         />
 
                         <MDBInput
@@ -94,7 +89,7 @@ export class JobForm extends React.Component<Props, State> {
                           validate
                           error = "wrong"
                           success = "right"
-                          onChange={ this.handleChangeCity }
+                          onChange={ this.handleChangeCity.bind(this) }
                         />
 
                         <MDBInput
@@ -102,7 +97,7 @@ export class JobForm extends React.Component<Props, State> {
                           rows="6"
                           label="Descrieti jobul/compania"
                           icon="pencil"
-                          onChange={ this.handleChangeDescription }
+                          onChange={ this.handleChangeDescription.bind(this) }
                         />
 
                         <div className="text-center mt-4">
@@ -112,7 +107,7 @@ export class JobForm extends React.Component<Props, State> {
                           type = "submit"
                           size = "lg"
                         >
-                          Submit <MDBIcon icon="paper-plane-o" className="ml-1" />
+                          Adauga <MDBIcon icon="paper-plane-o" className="ml-1" />
                         </MDBBtn>
                       </div>
                     </div>
