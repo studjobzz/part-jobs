@@ -7,7 +7,28 @@ import { inject, observer } from "mobx-react";
 import "../account-details/account-details.css";
 import { Link, Redirect } from "react-router-dom";
 import { ReactNode } from "react";
-import { ConfirmModal } from "./ConfirmModal";
+// import { ConfirmModal } from "./ConfirmModal";
+import "./UploadPage.css";
+import {
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Col,
+  Row,
+  CustomInput
+} from "reactstrap";
+
+import calendar from "./calendar.png";
+import envelope from "./envelope.png";
+import phone from "./call-answer.png";
+import avatar from "./avatar.png";
+import map from "./map.png";
+
+class UploadFile extends React.Component {
+
+  };
 
 interface Props {
   userStore: UserStore;
@@ -151,118 +172,141 @@ export class AccountDetailsEdit extends React.Component<Props, State> {
   render() {
     const { editedUser, err } = this.state;
     return (
-      <div className="add-edit-recipe">
-        {this.state.redirect}
-        {this.state.updateWasSuccessful && (
-          <ConfirmModal
-            msg={this.state.updateResponseMsg}
-            onOkClick={this.handleRedirect.bind(this)}
-          />
-        )}
-        <form onSubmit={this.handleSubmitChanges.bind(this)}>
-          <Tabs id="accDetEditTabs" className="account-details-tabs">
-            <Tab
-              id="accDetEditTab"
-              title="Edit Account Details"
-              className="recipe-tab account-details-tab"
-              panel={
-                <React.Fragment>
-                  <span className="glyphicon glyphicon-user user-placeholder" />
-                  <div className="user-details">
-                    <label>First Name *</label>
-                    <input
-                      type="text"
-                      placeholder="First name"
-                      value={editedUser.first_name}
-                      onChange={event =>
-                        (editedUser.first_name = event.target.value)
-                      }
-                      maxLength={50}
-                    />
-                    <ErrView errMsg={err.first_name} />
-                    <label>Last Name *</label>
-                    <input
-                      type="text"
-                      placeholder="Last name"
-                      value={editedUser.last_name}
-                      onChange={event =>
-                        (editedUser.last_name = event.target.value)
-                      }
-                      maxLength={50}
-                    />
-                    <ErrView errMsg={err.last_name} />
-                    <label>Email *</label>
-                    <input
-                      type="text"
-                      placeholder="Email"
-                      value={editedUser.email}
-                      onChange={event =>
-                        (editedUser.email = event.target.value)
-                      }
-                      maxLength={50}
-                    />
-                    <ErrView errMsg={err.email} />
-                  </div>
-                  <h1>Change password</h1>
-                  <div className="user-details">
-                    <label>Old Password *</label>
-                    <input
-                      type="password"
-                      placeholder="Old Password"
-                      value={editedUser.oldPassword}
-                      onChange={event =>
-                        (editedUser.oldPassword = event.target.value)
-                      }
-                    />
-                    <ErrView errMsg={err.oldPassword} />
-                    <label>New Password *</label>
-                    <input
-                      type="password"
-                      placeholder="New Password"
-                      value={editedUser.newPassword}
-                      onChange={event =>
-                        (editedUser.newPassword = event.target.value)
-                      }
-                    />
-                    <ErrView errMsg={err.newPassword} />
-                    <label>Repeat Password *</label>
-                    <input
-                      type="password"
-                      placeholder="Repeat Password"
-                      value={editedUser.repeatPassword}
-                      onChange={event =>
-                        (editedUser.repeatPassword = event.target.value)
-                      }
-                    />
-                    <ErrView errMsg={err.repeatPassword} />
-                  </div>
-                </React.Fragment>
-              }
-            />
-          </Tabs>
-          <div className="submit-button">
-            {this.state.responseHasBeenReceived &&
-              !this.state.updateWasSuccessful && (
-                <React.Fragment>
-                  <Icon icon="delete" className="err" />
-                  <span className="err">{this.state.updateResponseMsg}</span>
-                </React.Fragment>
-              )}
-            <Link
-              to="/account/details/view"
-              type="button"
-              className="bp3-button bp3-intent cancel"
-            >
-              Cancel
-            </Link>
-            <button
-              type="submit"
-              className="bp3-button bp3-intent-primary save-shopping-list"
-            >
-              Save
-            </button>
-          </div>
-        </form>
+      <div className="container1">
+        <Form className="form1">
+          <Row form>
+            <Col md={2}>
+              <FormGroup>
+                <Label for="firstName" className="labelP">
+                  <img src={avatar} alt="avatarIcon" className="iconP" />
+                </Label>
+              </FormGroup>
+            </Col>
+
+            <Col md={5}>
+              <FormGroup>
+                <Input
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  placeholder="Prenume"
+                />
+              </FormGroup>
+            </Col>
+
+            <Col md={5}>
+              <FormGroup>
+                <Input
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  placeholder="Nume"
+                />
+              </FormGroup>
+            </Col>
+          </Row>
+
+          <FormGroup row>
+            <Label for="email" md={2}>
+              <img src={envelope} alt="envelopeIcon" className="icon" />
+            </Label>
+            <Col md={10}>
+              <Input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="something@domain.com"
+              />
+            </Col>
+          </FormGroup>
+
+          <FormGroup row>
+            <Label for="exampleDatetime" md={2}>
+              <img src={calendar} alt="calendarIcon" className="icon" />
+            </Label>
+            <Col>
+              <Input
+                type="datetime"
+                name="datetime"
+                id="exampleDatetime"
+                placeholder="Data nasterii"
+              />
+            </Col>
+          </FormGroup>
+
+          <FormGroup row>
+            <Label for="telefon" md={2}>
+              <img src={phone} alt="phoneIcon" className="icon" />
+            </Label>
+            <Col>
+              <Input
+                type="text"
+                name="telefon"
+                id="telefon"
+                placeholder="+(40)7xxxxxxxx"
+              />
+            </Col>
+          </FormGroup>
+
+          <FormGroup row>
+            <Label for="address" md={2}>
+              <img src={map} alt="mapIcon" className="icon" />
+            </Label>
+            <Col>
+              <Input
+                type="text"
+                name="address"
+                id="address"
+                placeholder="Adresa"
+              />
+            </Col>
+          </FormGroup>
+
+          <Row form>
+            <Col sm={6}>
+              <FormGroup tag="Sex" className="sex">
+                <legend className="col-form-label">
+                  <b>Sex</b>
+                </legend>
+
+                <FormGroup check className="sex">
+                  <Input type="radio" name="sex" />
+                  Masculin <br />
+                  <Input type="radio" name="sex" />
+                  Feminin
+                </FormGroup>
+              </FormGroup>
+            </Col>
+
+            <Col sm={6}>
+              <FormGroup tag="status" className="status">
+                <legend className="col-form-label">
+                  <b>Stare civila</b>
+                </legend>
+
+                <FormGroup check className="status">
+                  <Input type="radio" name="status" /> Casatorit <br />
+                  <Input type="radio" name="status" /> Necasatorit
+                </FormGroup>
+              </FormGroup>
+            </Col>
+          </Row>
+          <br />
+
+          <FormGroup>
+            <Label for="exampleCustomFileBrowser">Incarca CV</Label>
+            <CustomInput type="file" id="cvUpload" name="cvUpload" />
+          </FormGroup>
+
+          <FormGroup check>
+            <Input type="checkbox" name="gdpr" id="gdpr" />
+            <span id="gdpr">
+              Sunt de acord cu prelucrarea datelor cu caracter personal.
+            </span>
+          </FormGroup>
+          <br />
+          <Button color="info"> Submit </Button>
+        </Form>
       </div>
     );
   }
