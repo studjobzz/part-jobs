@@ -28,6 +28,9 @@ interface State {
   email: string
   phone: string
   about: string
+  adress: string
+  birthday: Date,
+  CV: string
 }
 
 const initialState: State = {
@@ -36,7 +39,10 @@ const initialState: State = {
   lastName:"Cojanu",
   email: "dragoscojanu97@yahoo.ro",
   phone: "0747459142",
-  about: "Building a website is, in many ways, an exercise of willpower. It’s tempting to get distracted by the bells and whistles of the design process, and forget all about creating compelling content."
+  about: "Building a website is, in many ways, an exercise of willpower. It’s tempting to get distracted by the bells and whistles of the design process, and forget all about creating compelling content.",
+  adress: "str. Principala, nr. 211",
+  birthday: new Date('10/25/1997'),
+  CV: "https://firebasestorage.googleapis.com/v0/b/reactdb-5d0b2.appspot.com/o/Requirement.pdf?alt=media&token=830f9b8f-6836-46dc-b0ed-cd6bd55f3035"
 }
 
 
@@ -130,7 +136,38 @@ export class AccountDetailsView extends React.Component<Props, State> {
                         <dt className="col-sm-4 text-left">Phone number</dt>
                         <dd className="col-sm-2"/>
                         <dd className="col-sm-4">
-                          <input type="text" className="form-control" placeholder={this.state.phone} disabled/>
+                          <input type="text" className="form-control" value={this.state.phone} disabled/>
+                        </dd>
+                        <dd className = "col-sm-2"/>
+
+                        <dt className="col-sm-4 text-left">Adresa</dt>
+                        <dd className="col-sm-2"/>
+                        <dd className="col-sm-4">
+                          <input type="text" className="form-control" value={this.state.adress} disabled/>
+                        </dd>
+                        <dd className = "col-sm-2"/>
+
+                        <dt className="col-sm-4 text-left">Data nasterii</dt>
+                        <dd className="col-sm-2"/>
+                        <dd className="col-sm-4">
+                          <input type="datetime" className="form-control" value={this.state.birthday.toDateString()} disabled/>
+                        </dd>
+                        <dd className = "col-sm-2"/>
+
+                        <dt className="col-sm-4 text-left">CV-ul meu</dt>
+                        <dd className="col-sm-2"/>
+                        <dd className="col-sm-4">
+                        <a href = {this.state.CV} download>
+                          <MDBBtn
+                            color = "light-blue"
+                            className = "mb-2"
+                            type = "submit"
+                            size = "sm"
+                          >
+                            <MDBIcon icon="download" className="ml-1" /> Descarca CV-ul
+                          </MDBBtn>
+                        </a>
+                        
                         </dd>
                         <dd className = "col-sm-2"/>
 
