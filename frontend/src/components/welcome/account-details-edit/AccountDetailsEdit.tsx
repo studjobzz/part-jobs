@@ -65,7 +65,7 @@ export class AccountDetailsEdit extends React.Component<Props, State> {
   }
 
   handleCvChange(event) {
-    this.setState({CV_data: event.target.value})
+    this.setState({CV_data: event.target.files[0]})
   }
 
   handleBrthdayChange(event){
@@ -88,6 +88,14 @@ export class AccountDetailsEdit extends React.Component<Props, State> {
     this.setState({lastName: event.target.value})
   }
 
+  handleAboutChange(event){
+    this.setState({about: event.target.value})
+  }
+
+  handleImageChange(event){
+    this.setState({profileImage_data: event.target.files[0]})
+  }
+
   render() {
     const { user } = this.props.userStore;
     return (
@@ -100,11 +108,20 @@ export class AccountDetailsEdit extends React.Component<Props, State> {
               <MDBRow>
                 <MDBCol md = "4">
                   <img src={this.state.profileImage} className="img-fluid z-depth-1 rounded-circle" height = "200px" width = "200px" /> 
+                  <br/><br/>
+                  <CustomInput type = "file" label = "Schimba poza"  onChange = {this.handleImageChange.bind(this)}/>
+                  <label>
+                      {this.state.profileImage_data.name}
+                    </label>
                 </MDBCol>
                 <MDBCol>
                 <blockquote className="blockquote text-center">
                   <p className="bq-title">{this.state.firstName} {this.state.lastName}</p>
-                  <p className="mb-0">{this.state.about}</p>
+                  <p className="mb-0">
+                  
+                  <Input type="textarea" rows = "3" value = {this.state.about} onChange = {this.handleAboutChange.bind(this)} />
+                  
+                  </p>
                   <footer className="blockquote-footer mb-3">{this.state.phone}<cite title= "email"> at {this.state.email}</cite></footer>
                 </blockquote>                  
                 </MDBCol>
@@ -121,14 +138,14 @@ export class AccountDetailsEdit extends React.Component<Props, State> {
                       <dt className="col-sm-4 text-left">Last name</dt>
                       <dd className="col-sm-2"/>
                       <dd className="col-sm-4">
-                        <input type="text" className="form-control" value={this.state.lastName} onChange = {this.handleLastNameChange}/>
+                        <input type="text" className="form-control" value={this.state.lastName} onChange = {this.handleLastNameChange.bind(this)}/>
                       </dd>
                       <dd className="col-sm-2"/>
 
                       <dt className="col-sm-4 text-left">First name</dt>
                       <dd className="col-sm-2"/>
                       <dd className="col-sm-4">
-                        <input type="text" className="form-control" value={this.state.firstName} onChange = {this.handleFirstNameChange}/>
+                        <input type="text" className="form-control" value={this.state.firstName} onChange = {this.handleFirstNameChange.bind(this)}/>
                       </dd>
                       <dd className = "col-sm-2"/>
 
@@ -144,50 +161,58 @@ export class AccountDetailsEdit extends React.Component<Props, State> {
                       <dd className="col-sm-4">
                         <input type="password" className="form-control" value="Parola" disabled/> 
                       </dd>
-                      <dd className = "col-md-2 text-left">
-                        <a href = "">
-                          <MDBIcon icon="wrench" className="ml-1" href=""/>
-                        </a>                          
-                      </dd>
-
+                      <dd className = "col-md-2 text-left"/>                      
 
                       <dt className="col-sm-4 text-left">Phone number</dt>
                       <dd className="col-sm-2"/>
                       <dd className="col-sm-4">
-                        <input type="text" className="form-control" value={this.state.phone} onChange = {this.handlePhoneChange}/>
+                        <input type="text" className="form-control" value={this.state.phone} onChange = {this.handlePhoneChange.bind(this)}/>
                       </dd>
                       <dd className = "col-sm-2"/>
 
                       <dt className="col-sm-4 text-left">Adresa</dt>
                       <dd className="col-sm-2"/>
                       <dd className="col-sm-4">
-                        <input type="text" className="form-control" value={this.state.adress} onChange = {this.handleAdressChange}/>
+                        <input type="text" className="form-control" value={this.state.adress} onChange = {this.handleAdressChange.bind(this)}/>
                       </dd>
                       <dd className = "col-sm-2"/>
 
                       <dt className="col-sm-4 text-left">Data nasterii</dt>
                       <dd className="col-sm-2"/>
                       <dd className="col-sm-4">
-                        <Input type="datetime" value={this.state.birthday.toDateString()} onChange = {this.handleBrthdayChange}/>
+                        <Input type="datetime" value={this.state.birthday.toDateString()} onChange = {this.handleBrthdayChange.bind(this)}/>
                       </dd>
                       <dd className = "col-sm-2"/>
 
-                      <dt className="col-sm-4 text-left">CV-ul meu</dt>
-                      <dd className="col-sm-2"/>
-                      <dd className="col-sm-4">
-                        <CustomInput type = "file" onChange = {this.handleCvChange}/>
+                      <dd className = "col-sm-2"/>
+                      <dd className="col-sm-8">
+                        <CustomInput type = "file" label = "Adauga noul CV" onChange = {this.handleCvChange.bind(this)}/>
+                        <label>
+                          {this.state.CV_data.name}
+                        </label>
                       </dd>
                       <dd className = "col-sm-2"/>
 
-                      <dt className = "col-sm-6"/>
+                      <dt className = "col-sm-2"/>
                       <dt className="col-sm-4 text-right">
                         <MDBBtn
-                          color = "light-blue"
+                          color = "success  "
                           className = "mb-2"
                           type = "submit"
                           size = "sm"
                         >
-                          Edit info <MDBIcon icon="info" className="ml-1" />
+                          Salveaza <MDBIcon icon="check" className="ml-1" />
+                        </MDBBtn>
+                      </dt>
+
+                      <dt className="col-sm-4 text-right">
+                        <MDBBtn
+                          color = "default"
+                          className = "mb-2"
+                          type = "submit"
+                          size = "sm"
+                        >
+                          Renunta <MDBIcon icon="close" className="ml-1" />
                         </MDBBtn>
                       </dt>
                       <dt className = "col-sm-2"/>
