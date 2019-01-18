@@ -260,7 +260,7 @@ export class Register extends React.Component<Props, State> {
             <Input type="checkbox" name="gdpr" id="gdpr" />
             <span>
               Sunt de acord cu&nbsp;
-              <a className="color" onClick={this._onButtonClick}>
+              <a onClick={this._onButtonClick} style={{ color: "#00a5da" }}>
                 termenii si conditiile
               </a>
               &nbsp;WorkForMe.
