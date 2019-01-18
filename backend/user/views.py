@@ -14,12 +14,15 @@ class ProfileView(generics.RetrieveAPIView):
     serializer_class = ProfileSerializer
 
 
-class ProfileCreateView(generics.CreateAPIView):
+class ProfileCreateView(generics.ListAPIView):
     """
     View used to create profile.
     """
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
 
 
 class ProfileUpdateView(generics.UpdateAPIView):
