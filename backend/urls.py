@@ -24,7 +24,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.conf.urls.static import static
 
 from backend import settings
-from backend.job.views import JobViewSet, CreateJobView, UpdateJobView
+from backend.job.views import JobViewSet, CreateJobView, UpdateJobView, JobListView
+from backend.user.views import ProfileView, ProfileCreateView, ProfileUpdateView
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -43,7 +44,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         user.save()
 
         return user
-	
+
     class Meta:
         model = User
         fields = ('url', 'username', 'email', 'first_name', 'last_name', 'is_staff', 'password')
@@ -72,7 +73,11 @@ urlpatterns = [
     url(r'^api/token/$', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     url(r'^api/token/refresh/$', TokenRefreshView.as_view(), name='token_refresh'),
     url(r'^api/token/verify/$', TokenVerifyView.as_view(), name='token_verify'),
-    url(r'api/job/get', JobViewSet.as_view({'get': 'list'}), name='job_get'),
+    url(r'^api/user/profile/$', ProfileCreateView.as_view(), name='create_profile'),
+    url(r'^api/user/(?P<pk>\d+)/profile/$', ProfileView.as_view(), name='profile'),
+    url(r'^api/user/(?P<pk>\d+)/profile/update/$', ProfileUpdateView.as_view(), name='profile_update'),
+    url(r'api/job/get', JobViewSet.as_view(), name='job_get'),
+    url(r'api/job/list', JobListView.as_view(), name='job_list'),
     url(r'api/job/create', CreateJobView.as_view(), name='job_create'),
     url(r'api/job/(?P<pk>\d+)/update', UpdateJobView.as_view(), name='job_create'),
     url(r'auth/', include('rest_framework_social_oauth2.urls')),
