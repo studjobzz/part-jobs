@@ -1,12 +1,12 @@
 import * as React from "react";
 import { Route } from "react-router";
-import { Content } from "./Content";
+import { ContentForHome } from "./ContentForHome";
 
 export default () => {
   return (
     <React.Fragment>
-      <Route exact path="/" component={Content} />
-      <Route exact path="/home" component={Content} />
+      <Route exact path="/" component={ContentForHome} />
+      <Route exact path="/home" component={ContentForHome} />
     </React.Fragment>
   );
 };

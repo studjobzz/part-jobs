@@ -10,6 +10,9 @@ import AddJobPageRoute from "./components/JobForm";
 import TabMenu from "./components/TabMenu/TabMenu";
 import AccountDetailsPageRoute from "./components/welcome/account-details";
 import AccountDetailsEditPageRoute from "./components/welcome/account-details-edit";
+import JobDetailsPageRoute from "./components/JobDetailsPage";
+import RegisterPageRoute from "./components/Register";
+import TermsPageRoute from "./components/Register/TermsPage";
 
 interface State {
   logged: any;
@@ -23,6 +26,23 @@ class App extends React.Component<{}, State> {
     this.state = { logged: "", clickLogged: false, registered: false };
   }
 
+  private updateState(): void {
+    if (localStorage.getItem("logged") == null) {
+      localStorage.setItem("logged", "");
+      localStorage.setItem("user", "");
+    }
+
+    if (this.state.logged != localStorage.getItem("logged")) {
+      this.setState({
+        logged: localStorage.getItem("logged")
+      });
+    }
+  }
+
+  componentDidMount() {
+    this.updateState();
+  }
+
   public render() {
     return (
       <div className="App">
@@ -30,16 +50,28 @@ class App extends React.Component<{}, State> {
           <React.Fragment>
             <Router>
               <React.Fragment>
-                <TabMenu
-                  viewStore={rootStore.viewStore}
-                  userStore={rootStore.userStore}
-                />
-                <HomeRoute />
-                <UserHomePageRoute />
-                <UserCvPageRoute />
-                <AddJobPageRoute />
-                <AccountDetailsPageRoute />
-                <AccountDetailsEditPageRoute />
+                {this.state.logged != "" ? (
+                  <React.Fragment>
+                    <TabMenu
+                      viewStore={rootStore.viewStore}
+                      userStore={rootStore.userStore}
+                    />
+                    <HomeRoute />
+                    <UserHomePageRoute />
+                    <UserCvPageRoute />
+                    <AddJobPageRoute />
+                    <AccountDetailsPageRoute />
+                    <AccountDetailsEditPageRoute />
+                    <JobDetailsPageRoute />
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment>
+                    <HomeRoute />
+                    <RegisterPageRoute />
+                    <JobDetailsPageRoute />
+                    <TermsPageRoute />
+                  </React.Fragment>
+                )}
               </React.Fragment>
             </Router>
           </React.Fragment>

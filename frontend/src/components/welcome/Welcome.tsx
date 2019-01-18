@@ -1,10 +1,5 @@
 import * as React from "react";
-import {
-  // Button,
-  // Popover,
-  Menu,
-  MenuItem
-} from "../../../node_modules/@blueprintjs/core";
+import { Menu, MenuItem } from "../../../node_modules/@blueprintjs/core";
 import { UserViewModel } from "../../view-models/UserViewModel";
 import { UserStore } from "../../store/UserStore";
 import "./welcome.css";
@@ -29,14 +24,13 @@ const initialState: State = {
   open: false
 };
 
-class Welcome extends React.Component<Props, State> {
+export class Welcome extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = initialState;
   }
 
   private handleClickLogOut(): any {
-    debugger;
     localStorage.setItem("logged", "");
     var nullCheck = localStorage.getItem("user");
     if (nullCheck == null) {
@@ -80,11 +74,13 @@ class Welcome extends React.Component<Props, State> {
           icon="chevron-down"
           className="backColor"
           ref="target"
-          text={this.props.renderWelcomeUser()}
           onClick={this.handleClick.bind(this)}
-        />
+          data-container="body"
+        >
+          {this.props.renderWelcomeUser()}
+        </Button>
         <Popover
-          // className="positioning"
+          className="positioning"
           placement="bottom"
           container={this}
           target={this.refs.target}
@@ -97,6 +93,8 @@ class Welcome extends React.Component<Props, State> {
               icon="user"
               onClick={() => this.handleRedirect("details/view")}
             />
+            <MenuItem text="Settings" icon="settings" />
+            <MenuItem text="Notifications" icon="notifications" />
             <MenuItem
               text="Log out"
               icon="log-out"

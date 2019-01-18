@@ -5,7 +5,7 @@ import "../../shared/list-all.css";
 import { ListsStore } from "../../store/lists-store";
 import NavbarPage from "../NavBar/NavbarPage";
 import FooterPage from "../FooterPage/FooterPage";
-import Content from "../AllJobs/Content";
+import ContentForHome from "../AllJobs/ContentForHome";
 import { UserStore } from "src/store/UserStore";
 import { JobViewModel } from "../../view-models/job";
 
@@ -38,7 +38,7 @@ export class Home extends React.Component<Props, State> {
     return (
       <div className="list-items">
         <NavbarPage userStore={this.props.userStore} />
-        <Content jobs={this.state.allList} />
+        <ContentForHome jobs={this.state.allList} />
         <FooterPage />
       </div>
     );

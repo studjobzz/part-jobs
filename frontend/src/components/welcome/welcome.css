@@ -1,12 +1,14 @@
 .backColor {
   background-color: #46b8da !important;
   height: 40px !important;
-  width: 180px !important;
+  width: 220px !important;
+  float: right;
 }
+
 .positioning {
-  /* margin-top: -95px !important; */
-  margin-right: 190px !important;
-  /* float: right; */
+  /* margin-top: -95px;
+  margin-right: 190px; */
+  float: right;
 }
 
 .hoverMenu > *:hover {

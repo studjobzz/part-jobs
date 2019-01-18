@@ -52,7 +52,7 @@ export class JobListItem extends React.Component<Props, State> {
   }
 
   handleClick(job: JobViewModel) {
-    this.setState({ redirectTo: "/job/" + job.pk });
+    this.setState({ redirectTo: "/job-details/user-home/" + job.pk });
   }
 
   handleRedirect(): React.ReactNode {

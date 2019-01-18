@@ -11,6 +11,8 @@ export class ListsStore {
   lists: ListViewModel;
   @observable
   activeList: JobViewModel[];
+  @observable
+  activeJob: JobViewModel;
 
   constructor(listsApi: ListsApiService) {
     this.listsApi = listsApi;
@@ -27,6 +29,14 @@ export class ListsStore {
           callback();
         }
       });
+  }
+
+  @action
+  loadActiveJob(id: number, loadedJobCallback: Function) {
+    this.listsApi.getJobById(id).then(data => {
+      this.activeJob = data;
+      loadedJobCallback(data);
+    });
   }
 
   @computed

@@ -115,7 +115,6 @@ export class JobsList extends React.Component<Props, State> {
   }
 
   render(): React.ReactNode {
-    console.log(this.props);
     return (
       this.handleRedirect() || (
         <div className="list-all">
