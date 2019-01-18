@@ -13,7 +13,6 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-import serializers as serializers
 
 from django.conf.urls import url
 from django.contrib import admin
@@ -25,7 +24,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.conf.urls.static import static
 
 from backend import settings
-from job.views import JobViewSet, CreateJobView, UpdateJobView
+from backend.job.views import JobViewSet, CreateJobView, UpdateJobView
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):

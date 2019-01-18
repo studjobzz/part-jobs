@@ -1,7 +1,11 @@
-from job.models import Job
-from job.serializers import JobSerializer
+from django.contrib import admin
+
+from .models import Job
+from .serializers import JobSerializer
 from rest_framework import viewsets, permissions
 from rest_framework.generics import CreateAPIView, UpdateAPIView
+
+admin.site.register(Job)
 
 
 class JobViewSet(viewsets.ModelViewSet):
