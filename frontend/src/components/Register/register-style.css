@@ -94,7 +94,6 @@ body {
   color: red;
 }
 
-.buttonBack {
-  /* position: absolute !important; */
-  margin-top: 675px !important;
+.buttonToolbar {
+  margin-left: 130px;
 }

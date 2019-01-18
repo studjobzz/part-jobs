@@ -12,7 +12,6 @@ import AccountDetailsPageRoute from "./components/welcome/account-details";
 import AccountDetailsEditPageRoute from "./components/welcome/account-details-edit";
 import JobDetailsPageRoute from "./components/JobDetailsPage";
 import RegisterPageRoute from "./components/Register";
-import TermsPageRoute from "./components/Register/TermsPage";
 
 interface State {
   logged: any;
@@ -69,7 +68,6 @@ class App extends React.Component<{}, State> {
                     <HomeRoute />
                     <RegisterPageRoute />
                     <JobDetailsPageRoute />
-                    <TermsPageRoute />
                   </React.Fragment>
                 )}
               </React.Fragment>

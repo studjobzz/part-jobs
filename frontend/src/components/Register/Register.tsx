@@ -2,6 +2,7 @@ import * as React from "react";
 import "./register-style.css";
 import {
   Button,
+  ButtonToolbar,
   Form,
   FormGroup,
   Label,
@@ -10,6 +11,7 @@ import {
   Row,
   CustomInput
 } from "reactstrap";
+import { Link } from "react-router-dom";
 import TermsModal from "./TermsPage/TermsModal";
 
 interface Props {}
@@ -268,9 +270,14 @@ export class Register extends React.Component<Props, State> {
             ) : null}
           </FormGroup>
           <br />
-          <Button onClick={this.onSubmitClick} color="info">
-            Submit
-          </Button>
+          <ButtonToolbar className="buttonToolbar">
+            <Button onClick={this.onSubmitClick} color="info">
+              Submit
+            </Button>
+            <Link to="/home">
+              <Button color="secondary">Back</Button>
+            </Link>
+          </ButtonToolbar>
         </Form>
       </div>
     );
