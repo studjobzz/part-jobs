@@ -14,8 +14,17 @@ import {
   Icon
 } from "mdbreact";
 import { Button, ButtonGroup } from "react-bootstrap";
-import { Form, Input, FormGroup, Label, Col, Row } from "reactstrap";
+import {
+  Form,
+  Input,
+  FormGroup,
+  Label,
+  Col,
+  Row,
+  FormFeedback
+} from "reactstrap";
 import {} from "@blueprintjs/core";
+import ErrorMessageComponent from "./ErrorMessageComponent";
 
 interface Props {
   userStore: UserStore;
@@ -47,6 +56,11 @@ export class ModalPage extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = initialState;
+    this._onButtonClick = this._onButtonClick.bind(this);
+  }
+
+  _onButtonClick() {
+    this.setState({ logged: !this.state.logged });
   }
 
   toggle = (nr: any) => {
@@ -127,6 +141,8 @@ export class ModalPage extends React.Component<Props, State> {
                 </Label>
                 <Col md={10}>
                   <Input
+                    name="email"
+                    id="email"
                     onChange={this.changeUsername.bind(this)}
                     type="email"
                     placeholder="E-mail"
@@ -146,6 +162,8 @@ export class ModalPage extends React.Component<Props, State> {
                 </Label>
                 <Col md={10}>
                   <Input
+                    name="password"
+                    id="password"
                     placeholder="Parola"
                     type="password"
                     validate
@@ -158,7 +176,7 @@ export class ModalPage extends React.Component<Props, State> {
           {this.state.logged ? (
             <div />
           ) : (
-            this.errorMessage("Invalid email or password!")
+            <ErrorMessageComponent onButtonClick={this._onButtonClick} />
           )}
           <ModalFooter className="justify-content-center">
             <ButtonGroup vertical>
