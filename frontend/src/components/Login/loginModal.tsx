@@ -99,7 +99,7 @@ export class ModalPage extends React.Component<Props, State> {
   render() {
     return (
       <Container>
-        <Button rounded onClick={() => this.toggle(1)}>
+        <Button bsStyle="info" onClick={() => this.toggle(1)}>
           Login
         </Button>
         <Modal
