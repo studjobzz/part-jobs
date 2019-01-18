@@ -29,6 +29,7 @@ export class UserStore {
   @action
   public logIn(user: any, loadedUserCallback: Function) {
     this.userApi.logIn(user).then(data => {
+      debugger;
       this.user = data;
       loadedUserCallback(data);
     });

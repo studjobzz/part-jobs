@@ -1,0 +1,95 @@
+body {
+  background-color: white;
+  background-image: "/registerImages/back.jpeg";
+  background-size: 100%;
+}
+
+.container1 {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+  background-color: white;
+  display: inline-block;
+  position: fixed;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 500px;
+  height: 750px;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
+  border-radius: 5px;
+  margin-top: 1%;
+  margin-bottom: 3%;
+  padding: 10 10 5 10;
+}
+
+.container2 {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+  background-color: white;
+  display: inline-block;
+  position: fixed;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 500px;
+  height: 650px;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
+  border-radius: 5px;
+  margin-top: 1%;
+  margin-bottom: 3%;
+  padding: 10 10 5 10;
+  overflow: auto;
+}
+
+.container1:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.8);
+}
+
+.container2:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.8);
+}
+
+.icon {
+  width: 25px;
+  height: 25px;
+}
+
+.iconP {
+  width: 25px;
+  height: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+.labelP {
+  justify-content: left;
+}
+
+.form1 {
+  margin: 40px;
+  position: relative;
+}
+
+.sex {
+  justify-content: left;
+}
+
+.status {
+  justify-content: left;
+}
+
+#gdpr {
+  font-size: 11pt;
+}
+
+.buttonToolbar {
+  margin-left: 130px;
+}

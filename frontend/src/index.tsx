@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
+import "@blueprintjs/core/lib/css/blueprint.css";
 
 ReactDOM.render(<App />, document.getElementById("root") as HTMLElement);
 registerServiceWorker();

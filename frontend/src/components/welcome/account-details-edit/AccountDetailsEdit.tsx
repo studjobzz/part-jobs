@@ -30,7 +30,7 @@ function getInitialState(): State {
       first_name: "",
       last_name: "",
       username: "",
-      email: "",
+      email: "",    
       oldPassword: "",
       newPassword: "",
       repeatPassword: ""

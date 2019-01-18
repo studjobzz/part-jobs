@@ -4,20 +4,18 @@ import {
   LoginUserViewModel
 } from "../../view-models/UserViewModel";
 import { UserStore } from "../../store/UserStore";
-import { observer, inject } from "mobx-react";
-
+import "./loginModal.css";
 import {
   Container,
-  Button,
   Modal,
   ModalBody,
   ModalHeader,
   ModalFooter,
-  Input,
-  Icon,
-  Tooltip,
-  Fa
+  Icon
 } from "mdbreact";
+import { Button, ButtonGroup } from "react-bootstrap";
+import { Form, Input, FormGroup, Label, Col, Row } from "reactstrap";
+import {} from "@blueprintjs/core";
 
 interface Props {
   userStore: UserStore;
@@ -78,6 +76,10 @@ export class ModalPage extends React.Component<Props, State> {
     );
   }
 
+  private handleUserRegister() {
+    window.location.href = "/user-register";
+  }
+
   private changeUsername(e: any): void {
     this.setState({ username: e.target.value });
   }
@@ -101,10 +103,11 @@ export class ModalPage extends React.Component<Props, State> {
         <Button rounded onClick={() => this.toggle(1)}>
           Login
         </Button>
-        <Button rounded onClick={() => this.toggle(2)}>
-          Register
-        </Button>
-        <Modal isOpen={this.state.modal1} toggle={() => this.toggle(1)}>
+        <Modal
+          className="modalLogin"
+          isOpen={this.state.modal1}
+          toggle={() => this.toggle(1)}
+        >
           <ModalHeader
             className="text-center"
             titleClass="w-100 font-weight-bold"
@@ -113,27 +116,44 @@ export class ModalPage extends React.Component<Props, State> {
             Sign in
           </ModalHeader>
           <ModalBody>
-            {/* <form className="mx-3 grey-text"> */}
-            <Input
-              label="Type your email"
-              icon="envelope"
-              group
-              type="email"
-              validate
-              error="wrong"
-              success="right"
-              onChange={this.changeUsername.bind(this)}
-            />
-            <Input
-              label="Type your password"
-              icon="lock"
-              group
-              type="password"
-              validate
-              onChange={this.changePassword.bind(this)}
-            />
-
-            {/* </form> */}
+            <Form>
+              <FormGroup row>
+                <Label for="email" md={2}>
+                  <img
+                    src={"/registerImages/envelope.png"}
+                    alt="envelopeIcon"
+                    className="icon"
+                  />
+                </Label>
+                <Col md={10}>
+                  <Input
+                    onChange={this.changeUsername.bind(this)}
+                    type="email"
+                    placeholder="E-mail"
+                    validate
+                    error="wrong"
+                    success="right"
+                  />
+                </Col>
+              </FormGroup>
+              <FormGroup row>
+                <Label for="password" md={2}>
+                  <img
+                    src={"/registerImages/lock.png"}
+                    alt="lockIcon"
+                    className="icon"
+                  />
+                </Label>
+                <Col md={10}>
+                  <Input
+                    placeholder="Parola"
+                    type="password"
+                    validate
+                    onChange={this.changePassword.bind(this)}
+                  />
+                </Col>
+              </FormGroup>
+            </Form>
           </ModalBody>
           {this.state.logged ? (
             <div />
@@ -141,50 +161,15 @@ export class ModalPage extends React.Component<Props, State> {
             this.errorMessage("Invalid email or password!")
           )}
           <ModalFooter className="justify-content-center">
-            {/* <Button onClick={this.handleUserLogin.bind(this)}>Login</Button> */}
-            <Button onClick={this.handleUserLogin.bind(this)}>Login</Button>
-          </ModalFooter>
-        </Modal>
-
-        <Modal isOpen={this.state.modal2} toggle={() => this.toggle(2)}>
-          <ModalHeader
-            className="text-center"
-            titleClass="w-100 font-weight-bold"
-            toggle={() => this.toggle(2)}
-          >
-            Sign up
-          </ModalHeader>
-          <ModalBody>
-            <Input
-              icon="user"
-              label="Your name"
-              group
-              type="text"
-              validate
-              error="wrong"
-              success="right"
-            />
-            <Input
-              label="Your email"
-              icon="envelope"
-              group
-              type="email"
-              validate
-              error="wrong"
-              success="right"
-            />
-            <Input
-              label="Your password"
-              icon="lock"
-              group
-              type="password"
-              validate
-            />
-          </ModalBody>
-          <ModalFooter className="justify-content-center">
-            <Button color="deep-orange" onClick={() => this.toggle(2)}>
-              SIGN UP
-            </Button>
+            <ButtonGroup vertical>
+              <Button onClick={this.handleUserLogin.bind(this)}>Login</Button>
+              <button
+                onClick={this.handleUserRegister.bind(this)}
+                className="registerButton"
+              >
+                Nu ai cont? Inregistrare!
+              </button>
+            </ButtonGroup>
           </ModalFooter>
         </Modal>
       </Container>

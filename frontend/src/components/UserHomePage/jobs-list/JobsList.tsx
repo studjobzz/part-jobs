@@ -70,9 +70,9 @@ export class JobsList extends React.Component<Props, State> {
     return null;
   }
 
-  // handleSetFavorites(recipe: RecipeCommandViewModel) {
-  //   this.props.recipesStore.AddOrUpdateRecipe(recipe, recipe.recipesMedia);
-  // }
+  handleSetFavorites(job: JobViewModel) {
+    this.props.listsStore.addOrUpdateJob(job);
+  }
 
   private handleFilterByCategory(category: string) {
     this.setState({
@@ -115,7 +115,6 @@ export class JobsList extends React.Component<Props, State> {
   }
 
   render(): React.ReactNode {
-    console.log(this.props);
     return (
       this.handleRedirect() || (
         <div className="list-all">
@@ -128,7 +127,7 @@ export class JobsList extends React.Component<Props, State> {
           <JobListView
             jobs={this.getRecipiesItems.bind(this)()}
             jobsToOmit={this.state.jobsToOmit}
-            // handleSetFavorites={this.handleSetFavorites.bind(this)}
+            handleSetFavorites={this.handleSetFavorites.bind(this)}
             waitingForData={!this.state.dataWasReceived}
           />
         </div>

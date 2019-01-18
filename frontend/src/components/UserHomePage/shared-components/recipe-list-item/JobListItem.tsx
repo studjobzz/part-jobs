@@ -10,7 +10,7 @@ import { AnchorButton, Button, Dialog, Intent } from "@blueprintjs/core";
 
 interface Props {
   job: JobViewModel;
-  // handleSetFavorites: Function;
+  handleSetFavorites: Function;
   waitingForData: boolean;
 }
 
@@ -31,28 +31,26 @@ export class JobListItem extends React.Component<Props, State> {
     };
   }
 
-  // private handleDeleteFavorites(event: any) {
-  //   let updatedRecipe = this.props.recipe;
-  //   updatedRecipe.favourite = false;
-  //   this.props.handleSetFavorites(updatedRecipe);
-  //   this.handleClose();
+  private handleDeleteFavorites(event: any) {
+    let updatedRecipe = this.props.job;
+    updatedRecipe.favourite = false;
+    this.props.handleSetFavorites(updatedRecipe);
+    this.handleClose();
+  }
 
-  // }
-
-  // private handleAddFavorites(event: any) {
-  //   let updatedRecipe = this.props.recipe;
-  //   updatedRecipe.favourite = true;
-  //   this.props.handleSetFavorites(updatedRecipe);
-  //   this.handleClose();
-
-  // }
+  private handleAddFavorites(event: any) {
+    let updatedRecipe = this.props.job;
+    updatedRecipe.favourite = true;
+    this.props.handleSetFavorites(updatedRecipe);
+    this.handleClose();
+  }
 
   onStarClick(nextValue) {
     this.setState({ rating: nextValue });
   }
 
   handleClick(job: JobViewModel) {
-    this.setState({ redirectTo: "/job/" + job.pk });
+    this.setState({ redirectTo: "/job-details/user-home/" + job.pk });
   }
 
   handleRedirect(): React.ReactNode {

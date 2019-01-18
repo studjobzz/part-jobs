@@ -6,10 +6,9 @@ import { HeaderTabs } from "../../view-models/header-tabs";
 import { ViewStore } from "src/store/view-store";
 import { Icon } from "@blueprintjs/core";
 import "./tab-menu.css";
-import Welcome from "../welcome/Welcome";
+import { Welcome } from "../welcome/Welcome";
 import { UserViewModel } from "../../view-models/UserViewModel";
 import { UserStore } from "src/store/UserStore";
-import "./welcome.css";
 
 interface Props {
   viewStore: ViewStore;
@@ -72,17 +71,17 @@ class TabMenu extends React.Component<Props, State> {
   }
 
   private renderWelcomeUser(): string {
-    var userJson = localStorage.getItem("user");
-    if (userJson != null) {
-      var user: any = JSON.parse(userJson);
-    }
-    const currentUser = new UserViewModel(
-      user.first_name,
-      user.last_name,
-      user.email,
-      user.password,
-      user.access
-    );
+    // var userJson = localStorage.getItem("user");
+    // if (userJson != null) {
+    //   var user: any = JSON.parse(userJson);
+    // }
+    // const currentUser = new UserViewModel(
+    //   user.first_name,
+    //   user.last_name,
+    //   user.email,
+    //   user.password,
+    //   user.access
+    // );
     // return (
     //   "Hello, " + currentUser.first_name + " " + currentUser.last_name + "!"
     // );
@@ -110,15 +109,15 @@ class TabMenu extends React.Component<Props, State> {
             </li>
             <li
               className={classNames({
-                active: this.isActive(HeaderTabs.cv)
+                active: this.isActive(HeaderTabs.favourite)
               })}
             >
               <Link
-                to="/user-cv"
-                onClick={() => this.changeActiveTab(HeaderTabs.cv)}
+                to="/favorites"
+                onClick={() => this.changeActiveTab(HeaderTabs.favourite)}
               >
                 <Icon className="icon-ingredients-list" icon="annotation" />
-                CV-URI
+                FAVORITES
               </Link>
             </li>
             <li

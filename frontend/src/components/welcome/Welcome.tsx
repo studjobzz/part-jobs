@@ -1,15 +1,13 @@
 import * as React from "react";
-import {
-  Button,
-  Popover,
-  Menu,
-  MenuItem
-} from "../../../node_modules/@blueprintjs/core";
+import { Menu, MenuItem } from "../../../node_modules/@blueprintjs/core";
 import { UserViewModel } from "../../view-models/UserViewModel";
 import { UserStore } from "../../store/UserStore";
 import "./welcome.css";
 import { Redirect } from "react-router";
 import { ReactNode } from "react";
+import Popover from "react-simple-popover";
+import { ButtonToolbar, Button, OverlayTrigger } from "react-bootstrap";
+
 interface Props {
   updateState: Function;
   renderWelcomeUser: Function;
@@ -18,20 +16,21 @@ interface Props {
 
 interface State {
   redirect: ReactNode;
+  open: boolean;
 }
 
 const initialState: State = {
-  redirect: undefined
+  redirect: undefined,
+  open: false
 };
 
-class Welcome extends React.Component<Props, State> {
+export class Welcome extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = initialState;
   }
 
   private handleClickLogOut(): any {
-    debugger;
     localStorage.setItem("logged", "");
     var nullCheck = localStorage.getItem("user");
     if (nullCheck == null) {
@@ -54,41 +53,56 @@ class Welcome extends React.Component<Props, State> {
   private handleRedirect(destinationTab: string) {
     const destinationURL = "/account/" + destinationTab;
     this.setState({ redirect: <Redirect to={destinationURL} /> }, () => {
-      this.setState({ redirect: undefined });
+      this.setState({ redirect: undefined, open: !this.state.open });
     });
+  }
+
+  handleClick(e) {
+    this.setState({ open: !this.state.open });
+  }
+
+  handleClose(e) {
+    this.setState({ open: false });
   }
 
   render() {
     return this.state.redirect ? (
       this.state.redirect
     ) : (
-      <React.Fragment>
+      <ButtonToolbar>
+        <Button
+          icon="chevron-down"
+          className="backColor"
+          ref="target"
+          onClick={this.handleClick.bind(this)}
+          data-container="body"
+        >
+          {this.props.renderWelcomeUser()}
+        </Button>
         <Popover
           className="positioning"
-          content={
-            <Menu className="hoverMenu">
-              <MenuItem
-                text="Account details"
-                icon="user"
-                onClick={() => this.handleRedirect("details/view")}
-              />
-              <MenuItem text="Settings" icon="settings" />
-              <MenuItem text="Notifications" icon="notifications" />
-              <MenuItem
-                text="Log out"
-                icon="log-out"
-                onClick={this.handleClickLogOut.bind(this)}
-              />
-            </Menu>
-          }
+          placement="bottom"
+          container={this}
+          target={this.refs.target}
+          show={this.state.open}
+          onHide={this.handleClose.bind(this)}
         >
-          <Button
-            icon="chevron-down"
-            className="backColor"
-            text={this.props.renderWelcomeUser()}
-          />
+          <Menu className="hoverMenu">
+            <MenuItem
+              text="Account details"
+              icon="user"
+              onClick={() => this.handleRedirect("details/view")}
+            />
+            <MenuItem text="Settings" icon="settings" />
+            <MenuItem text="Notifications" icon="notifications" />
+            <MenuItem
+              text="Log out"
+              icon="log-out"
+              onClick={this.handleClickLogOut.bind(this)}
+            />
+          </Menu>
         </Popover>
-      </React.Fragment>
+      </ButtonToolbar>
     );
   }
 }

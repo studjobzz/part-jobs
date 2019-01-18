@@ -17,14 +17,16 @@ interface Props {
   index: number;
 }
 
-interface State {
-  // redirectTo: string;
-}
+interface State {}
 
-export class Job extends React.Component<Props, State> {
+const initialState: State = {};
+
+export class JobForHome extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
+    this.state = initialState;
   }
+
   render() {
     return (
       <Row>
@@ -49,7 +51,7 @@ export class Job extends React.Component<Props, State> {
                 {this.props.job.description}
               </CardText>
               <a
-                href="/jobs/add"
+                href={"/job-details/" + "home/" + this.props.job.pk}
                 className="black-text d-flex justify-content-end"
               >
                 <h5 className="white-text">
@@ -64,4 +66,4 @@ export class Job extends React.Component<Props, State> {
   }
 }
 
-export default Job;
+export default JobForHome;
