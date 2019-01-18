@@ -31,6 +31,8 @@ interface State {
   showComponent: boolean;
 }
 
+
+
 export class Register extends React.Component<Props, State> {
   constructor(props) {
     super(props);
@@ -58,6 +60,7 @@ export class Register extends React.Component<Props, State> {
 
   render() {
     return (
+      <div className="wrapper">
       <div className="container1">
         <Form className="form1">
           <Row form>
@@ -279,6 +282,7 @@ export class Register extends React.Component<Props, State> {
             </Link>
           </ButtonToolbar>
         </Form>
+      </div>
       </div>
     );
   }
