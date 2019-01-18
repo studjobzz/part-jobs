@@ -11,10 +11,11 @@ import {
   ModalBody,
   ModalHeader,
   ModalFooter,
-  Input,
   Icon
 } from "mdbreact";
-import { ButtonToolbar, Button } from "react-bootstrap";
+import { Button, ButtonGroup } from "react-bootstrap";
+import { Form, Input, FormGroup, Label, Col, Row } from "reactstrap";
+import {} from "@blueprintjs/core";
 
 interface Props {
   userStore: UserStore;
@@ -115,27 +116,44 @@ export class ModalPage extends React.Component<Props, State> {
             Sign in
           </ModalHeader>
           <ModalBody>
-            {/* <form className="mx-3 grey-text"> */}
-            <Input
-              label="Type your email"
-              icon="envelope"
-              group
-              type="email"
-              validate
-              error="wrong"
-              success="right"
-              onChange={this.changeUsername.bind(this)}
-            />
-            <Input
-              label="Type your password"
-              icon="lock"
-              group
-              type="password"
-              validate
-              onChange={this.changePassword.bind(this)}
-            />
-
-            {/* </form> */}
+            <Form>
+              <FormGroup row>
+                <Label for="email" md={2}>
+                  <img
+                    src={"/registerImages/envelope.png"}
+                    alt="envelopeIcon"
+                    className="icon"
+                  />
+                </Label>
+                <Col md={10}>
+                  <Input
+                    onChange={this.changeUsername.bind(this)}
+                    type="email"
+                    placeholder="E-mail"
+                    validate
+                    error="wrong"
+                    success="right"
+                  />
+                </Col>
+              </FormGroup>
+              <FormGroup row>
+                <Label for="password" md={2}>
+                  <img
+                    src={"/registerImages/lock.png"}
+                    alt="lockIcon"
+                    className="icon"
+                  />
+                </Label>
+                <Col md={10}>
+                  <Input
+                    placeholder="Parola"
+                    type="password"
+                    validate
+                    onChange={this.changePassword.bind(this)}
+                  />
+                </Col>
+              </FormGroup>
+            </Form>
           </ModalBody>
           {this.state.logged ? (
             <div />
@@ -143,12 +161,15 @@ export class ModalPage extends React.Component<Props, State> {
             this.errorMessage("Invalid email or password!")
           )}
           <ModalFooter className="justify-content-center">
-            <ButtonToolbar>
-              <Button onClick={this.handleUserRegister.bind(this)}>
-                Register
-              </Button>
+            <ButtonGroup vertical>
               <Button onClick={this.handleUserLogin.bind(this)}>Login</Button>
-            </ButtonToolbar>
+              <button
+                onClick={this.handleUserRegister.bind(this)}
+                className="registerButton"
+              >
+                Nu ai cont? Inregistrare!
+              </button>
+            </ButtonGroup>
           </ModalFooter>
         </Modal>
       </Container>
