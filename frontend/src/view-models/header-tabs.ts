@@ -1,6 +1,6 @@
 export enum HeaderTabs {
   userHome,
-  cv,
+  favourite,
   career,
   search
 }

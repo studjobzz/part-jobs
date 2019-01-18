@@ -9,6 +9,13 @@ const DELETE_HEADERS = {
   }
 };
 
+const POST_HEADERS = {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  }
+};
+
 export class ListsApiService {
   getLists(): Promise<JobViewModel[]> {
     return fetch("http://localhost:8000/api/job/get", {
@@ -28,9 +35,15 @@ export class ListsApiService {
       .then(data => data);
   }
 
-  AddOrUpdateRecipe(job: JobViewModel): any {
-    const url = "http://localhost:8000/api/job/" + job.pk + "update";
-    return AxiosInstance.post(url, job).then(r => r.status);
+  addOrUpdateJob(job: JobViewModel): Promise<number> {
+    let header: RequestInit = {
+      ...POST_HEADERS,
+      body: JSON.stringify(job)
+    };
+    return fetch(
+      "http://localhost:8000/api/job/" + job.pk + "update",
+      header
+    ).then(response => response.json());
   }
 
   deleteRecipe(recipeId: number): Promise<number> {

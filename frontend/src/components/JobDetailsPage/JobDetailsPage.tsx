@@ -26,7 +26,8 @@ const initialState: State = {
     pk: 0,
     title: "",
     description: "",
-    image: ""
+    image: "",
+    favourite: false
   }
 };
 

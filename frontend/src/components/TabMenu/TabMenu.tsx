@@ -109,15 +109,15 @@ class TabMenu extends React.Component<Props, State> {
             </li>
             <li
               className={classNames({
-                active: this.isActive(HeaderTabs.cv)
+                active: this.isActive(HeaderTabs.favourite)
               })}
             >
               <Link
-                to="/user-cv"
-                onClick={() => this.changeActiveTab(HeaderTabs.cv)}
+                to="/favorites"
+                onClick={() => this.changeActiveTab(HeaderTabs.favourite)}
               >
                 <Icon className="icon-ingredients-list" icon="annotation" />
-                CV-URI
+                FAVORITES
               </Link>
             </li>
             <li

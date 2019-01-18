@@ -37,13 +37,12 @@ const initialState: State = {
 @inject("listsStore")
 @inject("viewStore")
 @observer
-export class JobsList extends React.Component<Props, State> {
+export class Favorites extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = initialState;
     this.props.listsStore.loadList(() =>
       this.setState({
-        jobs: this.props.listsStore.activeList,
         dataWasReceived: true
       })
     );
@@ -51,7 +50,7 @@ export class JobsList extends React.Component<Props, State> {
   newListOfRecipes: JobViewModel[] = [];
 
   componentWillMount() {
-    this.props.viewStore.changeActiveHeaderTab(HeaderTabs.userHome);
+    this.props.viewStore.changeActiveHeaderTab(HeaderTabs.favourite);
   }
 
   handleJobsToOmit(jobsToOmit: number[]) {
@@ -70,8 +69,9 @@ export class JobsList extends React.Component<Props, State> {
     return null;
   }
 
-  handleSetFavorites(job: JobViewModel) {
+  private handleSetFavorites(job: JobViewModel) {
     this.props.listsStore.addOrUpdateJob(job);
+    return null;
   }
 
   private handleFilterByCategory(category: string) {
@@ -109,8 +109,9 @@ export class JobsList extends React.Component<Props, State> {
   }
 
   getRecipiesItems(): JobViewModel[] {
-    let result = this.props.listsStore.activeList;
-    result = this.filterByCategory(this.filterByDifficulty(result));
+    // let result = this.props.listsStore.getFavourites;
+    let result = this.props.listsStore.getList;
+    result = this.filterByDifficulty(result);
     return result;
   }
 

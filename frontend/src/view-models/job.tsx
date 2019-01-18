@@ -9,11 +9,14 @@ export class JobViewModel {
   public description: string;
   @observable
   public image: string;
+  @observable
+  public favourite: boolean;
 
   constructor(item: any) {
     this.pk = item.pk;
     this.title = item.title;
     this.description = item.description;
     this.image = item.image;
+    this.favourite = item.favourite;
   }
 }

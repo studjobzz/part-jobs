@@ -13,6 +13,8 @@ export class ListsStore {
   activeList: JobViewModel[];
   @observable
   activeJob: JobViewModel;
+  @observable
+  statusCode: number;
 
   constructor(listsApi: ListsApiService) {
     this.listsApi = listsApi;
@@ -31,12 +33,28 @@ export class ListsStore {
       });
   }
 
+  addOrUpdateJob(job: JobViewModel, callback?: Function) {
+    this.listsApi
+      .addOrUpdateJob(job)
+      .then(statusCode => (this.statusCode = statusCode))
+      .then(() => {
+        if (callback != undefined) {
+          callback();
+        }
+      });
+  }
+
   @action
   loadActiveJob(id: number, loadedJobCallback: Function) {
     this.listsApi.getJobById(id).then(data => {
       this.activeJob = data;
       loadedJobCallback(data);
     });
+  }
+
+  @computed
+  get getFavourites(): JobViewModel[] {
+    return this.activeList.filter(job => job.favourite);
   }
 
   @computed

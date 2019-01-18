@@ -8,7 +8,7 @@ import { Redirect } from "react-router-dom";
 
 interface Props {
   jobs: JobViewModel[];
-  // handleSetFavorites: Function;
+  handleSetFavorites: Function;
   jobsToOmit: number[];
   waitingForData: boolean;
 }
@@ -34,7 +34,7 @@ export class JobListView extends React.Component<Props> {
               return (
                 <div key={index}>
                   <JobListItem
-                    // handleSetFavorites={this.props.handleSetFavorites}
+                    handleSetFavorites={this.props.handleSetFavorites}
                     job={job}
                     waitingForData={this.props.waitingForData}
                   />

@@ -5,7 +5,7 @@ import { Provider } from "mobx-react";
 import { BrowserRouter as Router } from "react-router-dom";
 import HomeRoute from "./components/Home";
 import UserHomePageRoute from "./components/UserHomePage/jobs-list";
-import UserCvPageRoute from "./components/UserHomePage/cv";
+import FavouritePageRoute from "./components/UserHomePage/favorites";
 import AddJobPageRoute from "./components/JobForm";
 import TabMenu from "./components/TabMenu/TabMenu";
 import AccountDetailsPageRoute from "./components/welcome/account-details";
@@ -57,11 +57,11 @@ class App extends React.Component<{}, State> {
                     />
                     <HomeRoute />
                     <UserHomePageRoute />
-                    <UserCvPageRoute />
                     <AddJobPageRoute />
                     <AccountDetailsPageRoute />
                     <AccountDetailsEditPageRoute />
                     <JobDetailsPageRoute />
+                    <FavouritePageRoute />
                   </React.Fragment>
                 ) : (
                   <React.Fragment>
