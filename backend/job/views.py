@@ -42,6 +42,6 @@ class UpdateJobView(UpdateAPIView):
     queryset = Job.objects.all()
     model = Job
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = JobSerializer
