@@ -33,14 +33,14 @@ export class JobListItem extends React.Component<Props, State> {
 
   private handleDeleteFavorites(event: any) {
     let updatedRecipe = this.props.job;
-    updatedRecipe.favourite = false;
+    updatedRecipe.favorite = false;
     this.props.handleSetFavorites(updatedRecipe);
     this.handleClose();
   }
 
   private handleAddFavorites(event: any) {
     let updatedRecipe = this.props.job;
-    updatedRecipe.favourite = true;
+    updatedRecipe.favorite = true;
     this.props.handleSetFavorites(updatedRecipe);
     this.handleClose();
   }

@@ -46,6 +46,18 @@ export class UserApiService {
     fetch("/api/User/LogOut", header);
   }
 
+  loadProfileUser(access: string) {
+    return fetch("/api/user/profile", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Token " + access
+      }
+    })
+      .then(response => response.json())
+      .then(data => data);
+  }
+
   update(user: UserCommandViewModel) {
     let header: RequestInit = {
       ...PUT_HEADERS,

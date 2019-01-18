@@ -1,4 +1,4 @@
-import { observable, computed, action } from "mobx";
+import { observable, computed, action, toJS } from "mobx";
 import { ListViewModel } from "../view-models/list-jobs";
 import { JobViewModel } from "../view-models/job";
 import ListsApiInstance, {
@@ -13,12 +13,23 @@ export class ListsStore {
   activeList: JobViewModel[];
   @observable
   activeJob: JobViewModel;
+
+  initialActiveJob: JobViewModel = {
+    pk: 0,
+    title: "",
+    description: "",
+    image: "",
+    favorite: false,
+    idUser: 0,
+    listaAplicanti: []
+  };
   @observable
   statusCode: number;
 
   constructor(listsApi: ListsApiService) {
     this.listsApi = listsApi;
     this.activeList = [];
+    this.activeJob = this.initialActiveJob;
   }
 
   @action
@@ -46,15 +57,21 @@ export class ListsStore {
 
   @action
   loadActiveJob(id: number, loadedJobCallback: Function) {
-    this.listsApi.getJobById(id).then(data => {
-      this.activeJob = data;
-      loadedJobCallback(data);
+    var self = this;
+    this.listsApi.getLists().then(data => {
+      data.map(element => {
+        if (element.pk == id) {
+          self.activeJob = element;
+          return;
+        }
+      });
+      loadedJobCallback(self.activeJob);
     });
   }
 
   @computed
   get getFavourites(): JobViewModel[] {
-    return this.activeList.filter(job => job.favourite);
+    return this.activeList.filter(job => job.favorite);
   }
 
   @computed

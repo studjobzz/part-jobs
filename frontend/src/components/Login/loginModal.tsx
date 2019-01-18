@@ -65,6 +65,8 @@ export class ModalPage extends React.Component<Props, State> {
       this.setState({ logged: true });
       localStorage.setItem("logged", this.props.userStore.user.access);
     }
+    debugger;
+    this.props.userStore.loadUserProfile(this.props.userStore.user.access);
     localStorage.setItem("user", JSON.stringify(this.props.userStore.user));
     window.location.href = "/user-home";
   }

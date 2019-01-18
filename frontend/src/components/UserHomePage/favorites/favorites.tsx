@@ -109,8 +109,8 @@ export class Favorites extends React.Component<Props, State> {
   }
 
   getRecipiesItems(): JobViewModel[] {
-    // let result = this.props.listsStore.getFavourites;
-    let result = this.props.listsStore.getList;
+    let result = this.props.listsStore.getFavourites;
+    // let result = this.props.listsStore.getList;
     result = this.filterByDifficulty(result);
     return result;
   }

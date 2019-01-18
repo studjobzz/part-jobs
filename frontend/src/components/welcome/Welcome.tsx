@@ -38,11 +38,13 @@ export class Welcome extends React.Component<Props, State> {
       var user: any = JSON.parse(nullCheck);
     }
     const currentUser = new UserViewModel(
+      user.profileImage,
       user.firs_name,
       user.last_name,
       user.email,
       user.password,
-      user.access
+      user.access,
+      user.phone
     );
     this.props.userStore.logOut(currentUser);
     this.props.updateState();

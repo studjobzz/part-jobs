@@ -18,7 +18,7 @@ const POST_HEADERS = {
 
 export class ListsApiService {
   getLists(): Promise<JobViewModel[]> {
-    return fetch("http://localhost:8000/api/job/get", {
+    return fetch("http://localhost:8000/api/job/list", {
       method: "GET",
       headers: {
         Accept: "application/json",

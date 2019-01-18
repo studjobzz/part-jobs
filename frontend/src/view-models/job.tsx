@@ -10,13 +10,19 @@ export class JobViewModel {
   @observable
   public image: string;
   @observable
-  public favourite: boolean;
+  public favorite: boolean;
+  @observable
+  public idUser: number;
+  @observable
+  public listaAplicanti: number[];
 
   constructor(item: any) {
     this.pk = item.pk;
     this.title = item.title;
     this.description = item.description;
     this.image = item.image;
-    this.favourite = item.favourite;
+    this.favorite = item.favorite;
+    this.idUser = item.idUser;
+    this.listaAplicanti = item.listaAplicanti;
   }
 }

@@ -1,269 +1,456 @@
 import * as React from "react";
 import { UserStore } from "../../../store/UserStore";
-import { Icon, Tab, Tabs } from "@blueprintjs/core";
-import { UserCommandViewModel } from "../../../view-models/UserViewModel";
-import { ErrView } from "./ErrView";
 import { inject, observer } from "mobx-react";
 import "../account-details/account-details.css";
-import { Link, Redirect } from "react-router-dom";
-import { ReactNode } from "react";
-import { ConfirmModal } from "./ConfirmModal";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBCard,
+  MDBCardBody,
+  MDBCardHeader,
+  MDBBtn,
+  MDBIcon
+} from "mdbreact";
+import { Link } from "react-router-dom";
+import { Input, CustomInput, Form, FormFeedback } from "reactstrap";
+
+import * as moment from "moment";
+import { UserViewModel } from "src/view-models/UserViewModel";
 
 interface Props {
   userStore: UserStore;
 }
 
 interface State {
-  editedUser: UserCommandViewModel;
-  err: UserCommandViewModel;
-  updateResponseMsg: string;
-  updateWasSuccessful: boolean;
-  responseHasBeenReceived: boolean;
-  redirect: ReactNode;
-}
-
-function getInitialState(): State {
-  return {
-    editedUser: new UserCommandViewModel({}),
-    err: {
-      id: 0,
-      first_name: "",
-      last_name: "",
-      username: "",
-      email: "",    
-      oldPassword: "",
-      newPassword: "",
-      repeatPassword: ""
-    },
-    updateResponseMsg: "",
-    updateWasSuccessful: false,
-    responseHasBeenReceived: false,
-    redirect: undefined
+  activeUser: UserViewModel;
+  //   profileImage: string;
+  //   profileImage_data: File;
+  //   firstName: string;
+  //   lastName: string;
+  //   email: string;
+  //   phone: string;
+  //   about: string;
+  //   adress: string;
+  //   birthday: Date;
+  //   CV: string;
+  //   CV_data: File;
+  // };
+  formErrors: {
+    id: string;
+    username: string;
+    password: string;
+    access: string;
+    profileImage: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    about: string;
+    adress: string;
+    birthday: string;
+    CV: string;
   };
 }
+
+// const initialState: State = {
+//   activeUser: {
+//     profileImage:
+//       "https://yt3.ggpht.com/a-/ACSszfFP-lJsbdTN8Xt9z8chBmUa_FKaA-6lopKoMw=s900-mo-c-c0xffffffff-rj-k-no",
+//     profileImage_data: new File([""], ""),
+//     firstName: "Dragos",
+//     lastName: "Cojanu",
+//     email: "dragoscojanu97@yahoo.ro",
+//     phone: "0747459142",
+//     about:
+//       "Building a website is, in many ways, an exercise of willpower. It’s tempting to get distracted by the bells and whistles of the design process, and forget all about creating compelling content.",
+//     adress: "str. Principala, nr. 211",
+//     birthday: new Date("10/25/1997"),
+//     CV:
+//       "https://firebasestorage.googleapis.com/v0/b/reactdb-5d0b2.appspot.com/o/Requirement.pdf?alt=media&token=830f9b8f-6836-46dc-b0ed-cd6bd55f3035",
+//     CV_data: new File([""], "")
+// }
 
 @inject("userStore")
 @observer
 export class AccountDetailsEdit extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    // if (this.props.userStore.user == undefined) {
-    //   this.props.userStore.loadUserFromLocalStorage();
-    // }
-    this.state = getInitialState();
-    // this.state.editedUser.id = this.props.userStore.user.id;
-    // this.state.editedUser.first_name = this.props.userStore.user.first_name;
-    // this.state.editedUser.last_name = this.props.userStore.user.last_name;
-    // this.state.editedUser.email = this.props.userStore.user.email;
-  }
-
-  private handleSubmitChanges(event) {
-    event.preventDefault();
-    if (this.validateForm()) {
-      this.props.userStore.updateUser(this.state.editedUser, () => {
-        let { err, updateWasSuccessful } = this.state;
-        let updateResponseMsg = "";
-        const statusCode = this.props.userStore.statusCode;
-        let responseHasBeenReceived = false;
-        switch (statusCode) {
-          case 401:
-            err.oldPassword = "Invalid password";
-            updateWasSuccessful = false;
-            break;
-          case 400:
-            updateResponseMsg = "Ill-formed request";
-            updateWasSuccessful = false;
-            responseHasBeenReceived = true;
-            break;
-          case 500:
-            updateResponseMsg =
-              "The request could not be completed due to an unknown error";
-            updateWasSuccessful = false;
-            responseHasBeenReceived = true;
-            break;
-          case 200:
-            updateResponseMsg = "The user was successfully updated";
-            updateWasSuccessful = true;
-            responseHasBeenReceived = true;
-            break;
-        }
-        this.setState({
-          err: err,
-          updateResponseMsg: updateResponseMsg,
-          updateWasSuccessful: updateWasSuccessful,
-          responseHasBeenReceived: responseHasBeenReceived
-        });
-      });
-    }
-  }
-
-  private validateForm() {
-    let err = new UserCommandViewModel({});
-    const editedUser = this.state.editedUser;
-    let ok = true;
-    if (!editedUser.first_name) {
-      err.first_name = "First Name required";
-      ok = false;
-    }
-    if (!editedUser.last_name) {
-      err.last_name = "Last Name required";
-      ok = false;
-    }
-    if (!editedUser.email) {
-      err.email = "Email required";
-      ok = false;
-    }
-    if (!editedUser.oldPassword) {
-      err.oldPassword = "Old Password required";
-      ok = false;
-    }
-    if (!editedUser.newPassword) {
-      err.newPassword = "New Password required";
-      ok = false;
-    }
-    if (!editedUser.repeatPassword) {
-      err.repeatPassword = "Password confirmation required";
-      ok = false;
-    }
-    if (
-      err.repeatPassword == undefined &&
-      editedUser.newPassword != editedUser.repeatPassword
-    ) {
-      err.repeatPassword = "New Password does not match Repeat Password field";
-      ok = false;
-    }
-    this.setState({ err: err });
-    return ok;
-  }
-
-  private handleRedirect() {
-    this.props.userStore.logIn(
-      {
-        email: this.state.editedUser.email,
-        password: this.state.editedUser.newPassword
+    this.state = {
+      activeUser: {
+        id: this.props.userStore.user.id,
+        username: this.props.userStore.user.username,
+        password: this.props.userStore.user.password,
+        access: this.props.userStore.user.access,
+        profileImage: this.props.userStore.user.profileImage,
+        first_name: this.props.userStore.user.first_name,
+        last_name: this.props.userStore.user.last_name,
+        email: this.props.userStore.user.email,
+        phone: this.props.userStore.user.phone,
+        about: this.props.userStore.user.about,
+        adress: this.props.userStore.user.adress,
+        birthday: this.props.userStore.user.birthday,
+        CV: this.props.userStore.user.CV
       },
-      () => {
-        this.setState({ redirect: <Redirect to="/account/details/view" /> });
+      formErrors: {
+        id: "",
+        username: "",
+        password: "",
+        access: "",
+        profileImage: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        about: "",
+        adress: "",
+        birthday: "",
+        CV: ""
       }
-    );
+    };
   }
 
   render() {
-    const { editedUser, err } = this.state;
+    const { user } = this.props.userStore;
     return (
-      <div className="add-edit-recipe">
-        {this.state.redirect}
-        {this.state.updateWasSuccessful && (
-          <ConfirmModal
-            msg={this.state.updateResponseMsg}
-            onOkClick={this.handleRedirect.bind(this)}
-          />
-        )}
-        <form onSubmit={this.handleSubmitChanges.bind(this)}>
-          <Tabs id="accDetEditTabs" className="account-details-tabs">
-            <Tab
-              id="accDetEditTab"
-              title="Edit Account Details"
-              className="recipe-tab account-details-tab"
-              panel={
-                <React.Fragment>
-                  <span className="glyphicon glyphicon-user user-placeholder" />
-                  <div className="user-details">
-                    <label>First Name *</label>
-                    <input
-                      type="text"
-                      placeholder="First name"
-                      value={editedUser.first_name}
-                      onChange={event =>
-                        (editedUser.first_name = event.target.value)
-                      }
-                      maxLength={50}
-                    />
-                    <ErrView errMsg={err.first_name} />
-                    <label>Last Name *</label>
-                    <input
-                      type="text"
-                      placeholder="Last name"
-                      value={editedUser.last_name}
-                      onChange={event =>
-                        (editedUser.last_name = event.target.value)
-                      }
-                      maxLength={50}
-                    />
-                    <ErrView errMsg={err.last_name} />
-                    <label>Email *</label>
-                    <input
-                      type="text"
-                      placeholder="Email"
-                      value={editedUser.email}
-                      onChange={event =>
-                        (editedUser.email = event.target.value)
-                      }
-                      maxLength={50}
-                    />
-                    <ErrView errMsg={err.email} />
-                  </div>
-                  <h1>Change password</h1>
-                  <div className="user-details">
-                    <label>Old Password *</label>
-                    <input
-                      type="password"
-                      placeholder="Old Password"
-                      value={editedUser.oldPassword}
-                      onChange={event =>
-                        (editedUser.oldPassword = event.target.value)
-                      }
-                    />
-                    <ErrView errMsg={err.oldPassword} />
-                    <label>New Password *</label>
-                    <input
-                      type="password"
-                      placeholder="New Password"
-                      value={editedUser.newPassword}
-                      onChange={event =>
-                        (editedUser.newPassword = event.target.value)
-                      }
-                    />
-                    <ErrView errMsg={err.newPassword} />
-                    <label>Repeat Password *</label>
-                    <input
-                      type="password"
-                      placeholder="Repeat Password"
-                      value={editedUser.repeatPassword}
-                      onChange={event =>
-                        (editedUser.repeatPassword = event.target.value)
-                      }
-                    />
-                    <ErrView errMsg={err.repeatPassword} />
-                  </div>
-                </React.Fragment>
-              }
-            />
-          </Tabs>
-          <div className="submit-button">
-            {this.state.responseHasBeenReceived &&
-              !this.state.updateWasSuccessful && (
-                <React.Fragment>
-                  <Icon icon="delete" className="err" />
-                  <span className="err">{this.state.updateResponseMsg}</span>
-                </React.Fragment>
-              )}
-            <Link
-              to="/account/details/view"
-              type="button"
-              className="bp3-button bp3-intent cancel"
-            >
-              Cancel
-            </Link>
-            <button
-              type="submit"
-              className="bp3-button bp3-intent-primary save-shopping-list"
-            >
-              Save
-            </button>
-          </div>
-        </form>
-      </div>
+      <MDBContainer>
+        <MDBRow>
+          <MDBCol>
+            <MDBCard style={{ marginTop: "1rem" }}>
+              <Form className="form1">
+                <MDBCardHeader>
+                  <MDBRow>
+                    <MDBCol md="4">
+                      <img
+                        src={this.state.activeUser.profileImage}
+                        className="img-fluid z-depth-1 rounded-circle"
+                        height="200px"
+                        width="200px"
+                      />
+                      <br />
+                      <br />
+                      <CustomInput
+                        id="profilePage"
+                        type="file"
+                        label="Schimba poza"
+                        onChange={this.handleImageChange.bind(this)}
+                        invalid={
+                          this.state.formErrors["profileImage"].length > 0
+                        }
+                        valid={
+                          this.state.formErrors["profileImage"].length == 0
+                        }
+                      />
+                      <FormFeedback tooltip>
+                        {this.state.formErrors["profileImage"]}
+                      </FormFeedback>
+                      {/* <label>
+                        {this.state.profileImage_data == undefined
+                          ? ""
+                          : this.state.profileImage_data.name}
+                      </label> */}
+                    </MDBCol>
+                    <MDBCol>
+                      <blockquote className="blockquote text-center">
+                        <p className="bq-title">
+                          {this.state.activeUser.first_name}{" "}
+                          {this.state.activeUser.last_name}
+                        </p>
+                        <p className="mb-0">
+                          <Input
+                            type="textarea"
+                            rows="3"
+                            value={this.state.activeUser.about}
+                            onChange={this.handleAboutChange.bind(this)}
+                            invalid={this.state.formErrors["about"].length > 0}
+                            valid={this.state.formErrors["about"].length == 0}
+                          />
+                          <FormFeedback tooltip>
+                            {this.state.formErrors["about"]}
+                          </FormFeedback>
+                        </p>
+                        <footer className="blockquote-footer mb-3">
+                          {this.state.activeUser.phone}
+                          <cite title="email">
+                            {" "}
+                            at {this.state.activeUser.email}
+                          </cite>
+                        </footer>
+                      </blockquote>
+                    </MDBCol>
+                  </MDBRow>
+                </MDBCardHeader>
+
+                <MDBCardBody>
+                  <MDBRow>
+                    <MDBCol md="1" />
+                    <MDBCol>
+                      <h1 className="text-left">About </h1>
+                      <hr />
+                      <dl className="row">
+                        <dt className="col-sm-4 text-left">Last name</dt>
+                        <dd className="col-sm-2" />
+                        <dd className="col-sm-6">
+                          <Input
+                            type="text"
+                            value={this.state.activeUser.last_name}
+                            onChange={this.handleLastNameChange.bind(this)}
+                            invalid={
+                              this.state.formErrors["lastName"].length > 0
+                            }
+                            valid={
+                              this.state.formErrors["lastName"].length == 0
+                            }
+                          />
+                          <FormFeedback tooltip>
+                            {this.state.formErrors["lastName"]}
+                          </FormFeedback>
+                        </dd>
+
+                        <dt className="col-sm-4 text-left">First name</dt>
+                        <dd className="col-sm-2" />
+                        <dd className="col-sm-6">
+                          <Input
+                            type="text"
+                            invalid={
+                              this.state.formErrors["firstName"].length > 0
+                            }
+                            valid={
+                              this.state.formErrors["firstName"].length == 0
+                            }
+                            value={this.state.activeUser.first_name}
+                            onChange={this.handleFirstNameChange.bind(this)}
+                          />
+                          <FormFeedback tooltip>
+                            {this.state.formErrors["firstName"]}
+                          </FormFeedback>
+                        </dd>
+
+                        <dt className="col-sm-4 text-left">eMail</dt>
+                        <dd className="col-sm-2" />
+                        <dd className="col-sm-6">
+                          <input
+                            type="text"
+                            className="form-control"
+                            value={this.state.activeUser.email}
+                            disabled
+                          />
+                        </dd>
+
+                        <dt className="col-sm-4 text-left">Password</dt>
+                        <dd className="col-sm-2" />
+                        <dd className="col-sm-6">
+                          <input
+                            type="password"
+                            className="form-control"
+                            value="Parola"
+                            disabled
+                          />
+                        </dd>
+
+                        <dt className="col-sm-4 text-left">Phone number</dt>
+                        <dd className="col-sm-2" />
+                        <dd className="col-sm-6">
+                          <Input
+                            type="text"
+                            value={this.state.activeUser.phone}
+                            onChange={this.handlePhoneChange.bind(this)}
+                            invalid={this.state.formErrors["phone"].length > 0}
+                            valid={this.state.formErrors["phone"].length == 0}
+                          />
+                          <FormFeedback tooltip>
+                            {this.state.formErrors["phone"]}
+                          </FormFeedback>
+                        </dd>
+
+                        <dt className="col-sm-4 text-left">Adresa</dt>
+                        <dd className="col-sm-2" />
+                        <dd className="col-sm-6">
+                          <Input
+                            type="text"
+                            value={this.state.activeUser.adress}
+                            onChange={this.handleAdressChange.bind(this)}
+                            invalid={this.state.formErrors["adress"].length > 0}
+                            valid={this.state.formErrors["adress"].length == 0}
+                          />
+                          <FormFeedback tooltip>
+                            {this.state.formErrors["adress"]}
+                          </FormFeedback>
+                        </dd>
+
+                        <dt className="col-sm-4 text-left">Data nasterii</dt>
+                        <dd className="col-sm-2" />
+                        <dd className="col-sm-6">
+                          <Input
+                            type="date"
+                            value={this.state.activeUser.birthday}
+                            onChange={this.handleBrthdayChange.bind(this)}
+                            invalid={
+                              this.state.formErrors["birthday"].length > 0
+                            }
+                            valid={
+                              this.state.formErrors["birthday"].length == 0
+                            }
+                          />
+                          <FormFeedback tooltip>
+                            {this.state.formErrors["birthday"]}
+                          </FormFeedback>
+                        </dd>
+
+                        <dd className="col-sm-2" />
+                        <dd className="col-sm-8">
+                          <CustomInput
+                            type="file"
+                            label="Adauga noul CV"
+                            onChange={this.handleCvChange.bind(this)}
+                            invalid={this.state.formErrors["CV"].length > 0}
+                            valid={this.state.formErrors["CV"].length == 0}
+                          />
+                          <FormFeedback tooltip>
+                            {this.state.formErrors["firstName"]}
+                          </FormFeedback>
+                          {/* <label>
+                            {this.state.activeUser.cv == undefined
+                              ? ""
+                              : this.state.CV_data.name}
+                          </label> */}
+                        </dd>
+                        <dd className="col-sm-2" />
+
+                        <dt className="col-sm-2" />
+                        <dt className="col-sm-4 text-right">
+                          <Link to="/account/details/view">
+                            <MDBBtn
+                              color="success  "
+                              className="mb-2"
+                              type="submit"
+                              size="sm"
+                              onClick={this.handleClickSave.bind(this)}
+                            >
+                              Salveaza <MDBIcon icon="check" className="ml-1" />
+                            </MDBBtn>
+                          </Link>
+                        </dt>
+
+                        <dt className="col-sm-4 text-right">
+                          <Link to="/account/details/view">
+                            <MDBBtn color="default" className="mb-2" size="sm">
+                              Renunta <MDBIcon icon="close" className="ml-1" />
+                            </MDBBtn>
+                          </Link>
+                        </dt>
+                        <dt className="col-sm-2" />
+                      </dl>
+                    </MDBCol>
+                    <MDBCol md="4" />
+                  </MDBRow>
+                </MDBCardBody>
+              </Form>
+            </MDBCard>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
     );
+  }
+
+  handleClickSave() {}
+
+  handleCvChange(event) {
+    // this.setState({ CV_data: event.target.files[0] });
+
+    if (
+      event.target.files.length == 0 ||
+      event.target.files[0].type == "application/pdf"
+    ) {
+      this.state.formErrors["CV"] = "";
+    } else this.state.formErrors["CV"] = "Only PDF";
+  }
+
+  handleBrthdayChange(event) {
+    let date = moment(event.target.value);
+    if (date.isValid)
+      this.setState({
+        activeUser: { ...this.state.activeUser, birthday: event.target.value }
+      });
+
+    if (event.target.value == "")
+      this.state.formErrors["birthday"] = "Data nasterii este obligatorie";
+    else if (!date.isValid) {
+      this.state.formErrors["birthday"] = "Nu ati introdus o data valida";
+    } else {
+      this.state.formErrors["birthday"] = "";
+    }
+  }
+
+  handleAdressChange(event) {
+    this.setState({
+      activeUser: { ...this.state.activeUser, adress: event.target.value }
+    });
+    if (event.target.value == "")
+      this.state.formErrors["adress"] = "Adresa este obligatorie";
+    else {
+      this.state.formErrors["adress"] = "";
+    }
+  }
+
+  handlePhoneChange(event) {
+    this.setState({
+      activeUser: { ...this.state.activeUser, phone: event.target.value }
+    });
+    if (event.target.value == "")
+      this.state.formErrors["phone"] = "Numarul de telefon este obligatoriu";
+    else {
+      this.state.formErrors["phone"] = "";
+    }
+  }
+
+  handleFirstNameChange(event) {
+    let data = event.target.value;
+    this.setState({
+      activeUser: { ...this.state.activeUser, first_name: data }
+    });
+    if (data.length < 3) {
+      this.state.formErrors["firstName"] = "minim 3 caractere";
+    } else {
+      this.state.formErrors["firstName"] = "";
+    }
+  }
+
+  handleLastNameChange(event) {
+    this.setState({
+      activeUser: { ...this.state.activeUser, last_name: event.target.value }
+    });
+    if (event.target.value.length < 3) {
+      this.state.formErrors["lastName"] = "minim 3 caractere";
+    } else {
+      this.state.formErrors["lastName"] = "";
+    }
+  }
+
+  handleAboutChange(event) {
+    this.setState({
+      activeUser: { ...this.state.activeUser, about: event.target.value }
+    });
+  }
+
+  handleImageChange(event) {
+    // this.setState({ profileImage_data: event.target.files[0] });
+
+    if (
+      event.target.files.length == 0 ||
+      event.target.files[0].type == "iamge/jpeg"
+    ) {
+      this.state.formErrors["profileImage"] = "";
+    } else this.state.formErrors["profileImage"] = "Only jpg";
+  }
+
+  formIsValid() {
+    let valid = true;
+
+    Object.keys(this.state.formErrors).forEach(val => {
+      if (val.length > 0) valid = false;
+    });
+
+    return valid;
   }
 }

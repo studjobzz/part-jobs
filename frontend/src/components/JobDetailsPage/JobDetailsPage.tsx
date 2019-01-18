@@ -4,6 +4,7 @@ import "./JobDetails.css";
 import { Redirect, Link } from "react-router-dom";
 import { ListsStore } from "src/store/lists-store";
 import { JobViewModel } from "src/view-models/job";
+import { observer, inject } from "mobx-react";
 
 interface Match {
   params: {
@@ -27,21 +28,26 @@ const initialState: State = {
     title: "",
     description: "",
     image: "",
-    favourite: false
+    favorite: false,
+    idUser: 0,
+    listaAplicanti: []
   }
 };
 
+@inject("listsStore")
+@observer
 export class JobDetails extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = initialState;
-    let recipeId = props.match.params.id;
-    // if (recipeId) {
-    //   this.props.listsStore.loadActiveJob(recipeId, this.loadJob.bind(this));
-    // }
+    let jobId = props.match.params.id;
+    if (jobId) {
+      this.props.listsStore.loadActiveJob(jobId, this.loadJob.bind(this));
+    }
   }
 
   private loadJob(job: JobViewModel): void {
+    debugger;
     this.setState({
       activeJob: job
     });
@@ -53,13 +59,9 @@ export class JobDetails extends React.Component<Props, State> {
         <Row className="coverRow">
           <Col className="cover">
             <p className="jobName">
-              Junior Configuration Specialist
-              {/* {this.state.activeJob.title} */}
+              {/* Junior Configuration Specialist */}
+              {this.state.activeJob.title}
               <br />{" "}
-              <span className="companyName">
-                Thomsons Online Benefits
-                {/* {this.state.activeJob.companyName} */}
-              </span>{" "}
             </p>
           </Col>{" "}
         </Row>
@@ -72,11 +74,12 @@ export class JobDetails extends React.Component<Props, State> {
             }}
             className="jobDetail"
           >
-            {/* {this.state.activeJob.description} */}
             <b>Descrierea job-ului</b>
             <br />
             <br />
-            As a Junior Configuration Specialist, you will be part of our
+            {this.state.activeJob.description}
+
+            {/* As a Junior Configuration Specialist, you will be part of our
             Solutions Delivery team, and your role will be to implement Darwin
             by configuring it to meet our Client specific requirements.
             <br />
@@ -87,7 +90,7 @@ export class JobDetails extends React.Component<Props, State> {
             <br />
             You will be closely working with our product Darwin™, a cloud-based
             global benefits management and employee engagement software, used by
-            some of the world’s most innovative companies.
+            some of the world’s most innovative companies. */}
           </Col>
         </Row>
         <Row>

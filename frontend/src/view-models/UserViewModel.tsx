@@ -27,19 +27,35 @@ export class UserViewModel {
   public password: string;
   @observable
   public access: string;
+  @observable
+  public profileImage: string;
+  @observable
+  public phone: number;
+  @observable
+  public about: string;
+  @observable
+  public adress: string;
+  @observable
+  public birthday: Date;
+  @observable
+  public CV: string;
 
   constructor(
     firstName: string,
     lastName: string,
     email: string,
     password: string,
-    access: string
+    access: string,
+    profileImage: string,
+    phone: number
   ) {
     this.first_name = firstName;
     this.last_name = lastName;
     this.email = email;
     this.password = password;
     this.access = access;
+    this.profileImage = profileImage;
+    this.phone = phone;
   }
 }
 

@@ -11,7 +11,21 @@ import {
 export class UserStore {
   private userApi: UserApiService;
   @observable
-  user: UserViewModel;
+  user: UserViewModel = {
+    id: 0,
+    username: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    access: "",
+    profileImage: "",
+    phone: 0,
+    about: "",
+    adress: "",
+    birthday: new Date(),
+    CV: ""
+  };
   @observable
   logged: boolean;
   @observable
@@ -29,8 +43,7 @@ export class UserStore {
   @action
   public logIn(user: any, loadedUserCallback: Function) {
     this.userApi.logIn(user).then(data => {
-      debugger;
-      this.user = data;
+      this.user.access = data.access;
       loadedUserCallback(data);
     });
   }
@@ -46,6 +59,14 @@ export class UserStore {
     if (userAsString != null) {
       this.user = JSON.parse(userAsString);
     }
+  }
+
+  @action
+  public loadUserProfile(access: string) {
+    debugger;
+    this.userApi.loadProfileUser(access).then(data => {
+      this.user = data;
+    });
   }
 
   @action.bound
