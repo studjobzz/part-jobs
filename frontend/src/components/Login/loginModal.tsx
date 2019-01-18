@@ -14,7 +14,15 @@ import {
   Icon
 } from "mdbreact";
 import { Button, ButtonGroup } from "react-bootstrap";
-import { Form, Input, FormGroup, Label, Col, Row } from "reactstrap";
+import {
+  Form,
+  Input,
+  FormGroup,
+  Label,
+  Col,
+  Row,
+  FormFeedback
+} from "reactstrap";
 import {} from "@blueprintjs/core";
 
 interface Props {
@@ -127,6 +135,8 @@ export class ModalPage extends React.Component<Props, State> {
                 </Label>
                 <Col md={10}>
                   <Input
+                    name="email"
+                    id="email"
                     onChange={this.changeUsername.bind(this)}
                     type="email"
                     placeholder="E-mail"
@@ -146,6 +156,8 @@ export class ModalPage extends React.Component<Props, State> {
                 </Label>
                 <Col md={10}>
                   <Input
+                    name="password"
+                    id="password"
                     placeholder="Parola"
                     type="password"
                     validate
