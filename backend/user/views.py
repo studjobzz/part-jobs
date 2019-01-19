@@ -24,6 +24,10 @@ class ProfileCreateView(generics.ListAPIView):
         permissions.IsAuthenticated
     ]
 
+    def get(self, request, *args, **kwargs):
+        import pdb;pdb.set_trace()
+        super().get(request, args, kwargs);
+
 
 class ProfileUpdateView(generics.UpdateAPIView):
     """
