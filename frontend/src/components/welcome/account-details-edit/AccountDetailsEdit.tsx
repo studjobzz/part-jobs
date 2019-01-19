@@ -21,6 +21,9 @@ import {
 } from "reactstrap"
 
 import * as moment from 'moment';
+import {
+  Link
+ } from 'react-router-dom'
 
 
 
@@ -252,14 +255,17 @@ export class AccountDetailsEdit extends React.Component<Props, State> {
                         </MDBBtn>
                       </dt>
 
+                      
                       <dt className="col-sm-4 text-right">
-                        <MDBBtn
-                          color = "default"
-                          className = "mb-2"
-                          size = "sm"
-                        >
-                          Renunta <MDBIcon icon="close" className="ml-1" />
-                        </MDBBtn>
+                        <Link to = "/account/details/view">
+                          <MDBBtn
+                            color = "default"
+                            className = "mb-2"
+                            size = "sm"
+                          >
+                            Renunta <MDBIcon icon="close" className="ml-1" />
+                          </MDBBtn>
+                        </Link>                        
                       </dt>
                       <dt className = "col-sm-2"/>
 
