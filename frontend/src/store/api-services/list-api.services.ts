@@ -1,6 +1,7 @@
 import { ListViewModel } from "../../view-models/list-jobs";
 import { JobViewModel } from "../../view-models/job";
 import AxiosInstance from "axios";
+import { UserCommandViewModel } from "src/view-models/UserViewModel";
 
 const DELETE_HEADERS = {
   method: "DELETE",
@@ -23,6 +24,20 @@ export class ListsApiService {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(data => data);
+  }
+
+  loadProfileUser(access: string): Promise<JobViewModel[]> {
+    // return fetch("http://localhost:8000/api/user/profile/", {
+    return fetch("http://localhost:8000/api/job/list", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+        // Authorization: "Bearer " + access
       }
     })
       .then(response => response.json())

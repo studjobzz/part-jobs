@@ -32,12 +32,21 @@ export class Home extends React.Component<Props, State> {
     this.props.listsStore.loadList(() => {
       this.setState({ allList: this.props.listsStore.activeList });
     });
+    // this.props.userStore.loadUserProfile("", () => {
+    //   debugger;
+    //   console.log("asss");
+    // });
   }
+
+  public handleSearch() {}
 
   render(): React.ReactNode {
     return (
       <div className="list-items">
-        <NavbarPage userStore={this.props.userStore} />
+        <NavbarPage
+          userStore={this.props.userStore}
+          listsStore={this.props.listsStore}
+        />
         <ContentForHome jobs={this.state.allList} />
         <FooterPage />
       </div>

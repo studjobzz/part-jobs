@@ -61,29 +61,36 @@ export class UserViewModel {
 
 export class UserCommandViewModel {
   @observable
-  public id: number;
+  public pk: number;
   @observable
-  public first_name: string;
+  public birthday: string;
   @observable
-  public last_name: string;
+  public user: string;
   @observable
-  public username: string;
+  public sex: string;
   @observable
-  public email: string;
+  public address: string;
   @observable
-  public oldPassword: string;
+  public status: string;
   @observable
-  public newPassword: string;
+  public phone_number: string;
   @observable
-  public repeatPassword: string;
+  public description: string;
+  @observable
+  public image: string;
+  @observable
+  public user_cv: string;
 
   constructor(user: any) {
-    this.id = user.id;
-    this.first_name = user.first_name;
-    this.last_name = user.last_name;
-    this.email = user.email;
-    this.oldPassword = user.oldPassword;
-    this.newPassword = user.newPassword;
-    this.repeatPassword = user.repeatPassword;
+    this.pk = user.pk;
+    this.birthday = user.birthday;
+    this.user = user.user;
+    this.sex = user.sex;
+    this.address = user.address;
+    this.status = user.status;
+    this.phone_number = user.phone_number;
+    this.description = user.description;
+    this.image = user.image;
+    this.user_cv = user.user_cv;
   }
 }

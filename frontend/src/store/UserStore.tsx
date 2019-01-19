@@ -11,21 +11,9 @@ import {
 export class UserStore {
   private userApi: UserApiService;
   @observable
-  user: UserViewModel = {
-    id: 0,
-    username: "",
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: "",
-    access: "",
-    profileImage: "",
-    phone: 0,
-    about: "",
-    adress: "",
-    birthday: new Date(),
-    CV: ""
-  };
+  user: UserViewModel;
+  @observable
+  profileUser: UserCommandViewModel[];
   @observable
   logged: boolean;
   @observable
@@ -33,6 +21,34 @@ export class UserStore {
 
   constructor(userApi: UserApiService) {
     this.userApi = userApi;
+    this.user = {
+      id: 0,
+      username: "",
+      first_name: "",
+      last_name: "",
+      email: "",
+      password: "",
+      access: "",
+      profileImage: "",
+      phone: 0,
+      about: "",
+      adress: "",
+      birthday: new Date(),
+      CV: ""
+    };
+    this.profileUser = [];
+    // {
+    //   pk: 0,
+    //   birthday: "",
+    //   user: "",
+    //   sex: "",
+    //   address: "",
+    //   status: "",
+    //   phone_number: "",
+    //   description: "",
+    //   image: "",
+    //   user_cv: ""
+    // };
   }
 
   @action.bound
@@ -62,11 +78,19 @@ export class UserStore {
   }
 
   @action
-  public loadUserProfile(access: string) {
+  public loadUserProfile(access: string, loadedUserCallback: Function) {
     debugger;
-    this.userApi.loadProfileUser(access).then(data => {
-      this.user = data;
-    });
+    this.userApi.loadProfileUser(access);
+    // .then(data => {
+    //   console.log("user-store-the-data: ", data);
+    //   this.profileUser = data;
+    //   loadedUserCallback();
+    // })
+    // .then(() => {
+    //   if (loadedUserCallback != undefined) {
+    //     loadedUserCallback();
+    //   }
+    // });
   }
 
   @action.bound

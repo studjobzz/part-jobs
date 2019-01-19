@@ -4,6 +4,7 @@ import { JobViewModel } from "../view-models/job";
 import ListsApiInstance, {
   ListsApiService
 } from "./api-services/list-api.services";
+import { UserCommandViewModel } from "src/view-models/UserViewModel";
 
 export class ListsStore {
   private listsApi: ListsApiService;
@@ -11,6 +12,8 @@ export class ListsStore {
   lists: ListViewModel;
   @observable
   activeList: JobViewModel[];
+  @observable
+  profileUser: UserCommandViewModel[];
   @observable
   activeJob: JobViewModel;
 
@@ -29,7 +32,25 @@ export class ListsStore {
   constructor(listsApi: ListsApiService) {
     this.listsApi = listsApi;
     this.activeList = [];
+    this.profileUser = [];
     this.activeJob = this.initialActiveJob;
+  }
+
+  @action
+  loadUserProfile(access: string, loadedUserCallback?: Function) {
+    debugger;
+    this.listsApi
+      .loadProfileUser(access)
+      .then(data => {
+        debugger;
+        console.log("tata");
+        // this.profileUser = data;
+      })
+      .then(() => {
+        if (loadedUserCallback != undefined) {
+          loadedUserCallback();
+        }
+      });
   }
 
   @action

@@ -16,9 +16,12 @@ import {
 import { Button, ButtonGroup } from "react-bootstrap";
 import { Form, Input, FormGroup, Label, Col, Row } from "reactstrap";
 import {} from "@blueprintjs/core";
+import { observer, inject } from "mobx-react";
+import { ListsStore } from "src/store/lists-store";
 
 interface Props {
   userStore: UserStore;
+  listsStore: ListsStore;
 }
 
 interface State {
@@ -43,6 +46,9 @@ const initialState: State = {
   logged: true
 };
 
+@inject("listsStore")
+@inject("userStore")
+@observer
 export class ModalPage extends React.Component<Props, State> {
   constructor(props) {
     super(props);
@@ -65,8 +71,13 @@ export class ModalPage extends React.Component<Props, State> {
       this.setState({ logged: true });
       localStorage.setItem("logged", this.props.userStore.user.access);
     }
-    debugger;
-    this.props.userStore.loadUserProfile(this.props.userStore.user.access);
+    // this.props.listsStore.loadUserProfile(
+    //   this.props.userStore.user.access,
+    //   () => {
+    //     debugger;
+    //     console.log("proba");
+    //   }
+    // );
     localStorage.setItem("user", JSON.stringify(this.props.userStore.user));
     window.location.href = "/user-home";
   }
@@ -76,6 +87,11 @@ export class ModalPage extends React.Component<Props, State> {
       new LoginUserViewModel(this.state.username, this.state.password),
       this.loadUser.bind(this)
     );
+  }
+
+  private handleCallback(): void {
+    debugger;
+    console.log("alex");
   }
 
   private handleUserRegister() {

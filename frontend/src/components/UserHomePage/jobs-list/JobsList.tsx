@@ -8,10 +8,12 @@ import "../../../shared/list-all.css";
 import { JobListView } from "../shared-components/job-list-view/JobListView";
 import { JobViewModel } from "../../../view-models/job";
 import { Redirect } from "react-router-dom";
+import { UserStore } from "src/store/UserStore";
 
 interface Props {
   listsStore: ListsStore;
   viewStore: ViewStore;
+  userStore: UserStore;
   handleRecipeDetails: Function;
 }
 
@@ -20,6 +22,7 @@ interface State {
   jobs: JobViewModel[];
   redirectTo: string;
   dataWasReceived: boolean;
+  access: string;
   filter: {
     difficulty: string;
     category: string;
@@ -27,6 +30,7 @@ interface State {
 }
 
 const initialState: State = {
+  access: localStorage.getItem("logged") || "",
   jobsToOmit: [],
   jobs: [],
   redirectTo: "",
@@ -36,17 +40,22 @@ const initialState: State = {
 
 @inject("listsStore")
 @inject("viewStore")
+@inject("userStore")
 @observer
 export class JobsList extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = initialState;
-    this.props.listsStore.loadList(() =>
+    this.props.listsStore.loadList(() => {
       this.setState({
         jobs: this.props.listsStore.activeList,
         dataWasReceived: true
-      })
-    );
+      });
+    });
+    this.props.userStore.loadUserProfile(this.state.access, () => {
+      debugger;
+      console.log(this.props.userStore.profileUser);
+    });
   }
   newListOfRecipes: JobViewModel[] = [];
 

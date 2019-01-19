@@ -4,7 +4,6 @@ import "../../shared/list-all.css";
 import ModalPage from "../Login/loginModal";
 import "./navbar-style.css";
 
-
 import {
   Navbar,
   NavbarBrand,
@@ -21,11 +20,12 @@ import {
   Button
 } from "mdbreact";
 
-
 import { UserStore } from "src/store/UserStore";
+import { ListsStore } from "src/store/lists-store";
 
 interface Props {
   userStore: UserStore;
+  listsStore: ListsStore;
 }
 
 interface State {
@@ -44,33 +44,37 @@ class NavbarPage extends React.Component<Props, State> {
 
   render() {
     return (
-      <Navbar
-        className="navbar"
-        dark
-        expand="md"
-        fixed="top"
-      >
+      <Navbar className="navbar" dark expand="md" fixed="top">
         <NavbarBrand>
-          <strong><img src={"/navbarImages/logobun2.png"} alt="logo" className="logo"/></strong>
+          <strong>
+            <img
+              src={"/navbarImages/logobun2.png"}
+              alt="logo"
+              className="logo"
+            />
+          </strong>
         </NavbarBrand>
-          <NavbarNav right>
-            <NavItem>
-              <FormInline waves>
-                <div className="md-form my-0">
-                  <input
-                    className="form-control mr-sm-2"
-                    type="text"
-                    placeholder="Search"
-                    aria-label="Search"
-                  />
-                </div>
-              </FormInline>
-            </NavItem>
-            <NavItem>
-              <ModalPage userStore={this.props.userStore} />
-              {/* <NavLink to="/login">Login</NavLink> */}
-            </NavItem>
-          </NavbarNav>
+        <NavbarNav right>
+          <NavItem>
+            <FormInline waves>
+              <div className="md-form my-0">
+                <input
+                  className="form-control mr-sm-2"
+                  type="text"
+                  placeholder="Search"
+                  aria-label="Search"
+                />
+              </div>
+            </FormInline>
+          </NavItem>
+          <NavItem>
+            <ModalPage
+              userStore={this.props.userStore}
+              listsStore={this.props.listsStore}
+            />
+            {/* <NavLink to="/login">Login</NavLink> */}
+          </NavItem>
+        </NavbarNav>
       </Navbar>
       //</Routes>
     );

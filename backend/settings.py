@@ -25,7 +25,7 @@ SECRET_KEY = 'rjsve*szq()r(-7)@s(a_2k!0%iptis05jn_6+n7iy1le+b_(3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+CORS_ORIGIN_ALLOW_ALL = True
 ALLOWED_HOSTS = []
 
 
@@ -162,7 +162,6 @@ SOCIAL_AUTH_GOOGLE_OAUTH_SECRET = 'nMlG3_IivbXfHWQMdqfxqa6K'
 SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE = ['email']
 
 ALLOWED_HOSTS = ['*']
-
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT=os.path.join(BASE_DIR, "media")

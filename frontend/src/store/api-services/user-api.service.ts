@@ -3,7 +3,8 @@ import {
   UserViewModel,
   LoginUserViewModel
 } from "./../../view-models/UserViewModel";
-
+import { JobViewModel } from "src/view-models/job";
+import Axios from "axios";
 const POST_HEADERS = {
   method: "POST",
   headers: {
@@ -45,18 +46,45 @@ export class UserApiService {
     };
     fetch("/api/User/LogOut", header);
   }
+  // return fetch("http://localhost:8000/api/job/list", {
+  //     method: "GET",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json"
+  //     }
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => data);
+  // }
 
   loadProfileUser(access: string) {
-    return fetch("/api/user/profile", {
+    return fetch("http://localhost:8000/api/user/profile", {
+      // return fetch("http://localhost:8000/api/job/list", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token " + access
+        // Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        Authorization: "Bearer " + access
       }
     })
       .then(response => response.json())
       .then(data => data);
   }
+
+  // const AuthStr = "Bearer ".concat(access);
+  // Axios.get("http://localhost:8000/api/user/profile", {
+  //   headers: { Authorization: AuthStr }
+  // })
+  //   .then(response => {
+  //     // If request is good...
+  //     debugger;
+  //     console.log(response.data);
+  //   })
+  //   .catch(error => {
+  //     console.log("error " + error);
+  //   });
+  // }
 
   update(user: UserCommandViewModel) {
     let header: RequestInit = {
