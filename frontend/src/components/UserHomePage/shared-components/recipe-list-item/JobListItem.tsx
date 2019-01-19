@@ -33,14 +33,14 @@ export class JobListItem extends React.Component<Props, State> {
 
   private handleDeleteFavorites(event: any) {
     let updatedRecipe = this.props.job;
-    updatedRecipe.favorite = false;
+    updatedRecipe.validated = false;
     this.props.handleSetFavorites(updatedRecipe);
     this.handleClose();
   }
 
   private handleAddFavorites(event: any) {
     let updatedRecipe = this.props.job;
-    updatedRecipe.favorite = true;
+    updatedRecipe.validated = true;
     this.props.handleSetFavorites(updatedRecipe);
     this.handleClose();
   }
@@ -61,8 +61,10 @@ export class JobListItem extends React.Component<Props, State> {
     return null;
   }
 
-  private handleOpen = () => this.setState({ isOpen: true });
-  private handleClose = () => this.setState({ isOpen: false });
+  private handleOpen = () =>
+    this.setState({ isOpen: this.props.job.validated });
+  private handleClose = () =>
+    this.setState({ isOpen: !this.props.job.validated });
   render() {
     return (
       this.handleRedirect() || (

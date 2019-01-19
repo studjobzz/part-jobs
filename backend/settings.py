@@ -25,7 +25,7 @@ SECRET_KEY = 'rjsve*szq()r(-7)@s(a_2k!0%iptis05jn_6+n7iy1le+b_(3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-CORS_ORIGIN_ALLOW_ALL = True
+
 ALLOWED_HOSTS = []
 
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'oauth2_provider',
     'social_django',
     'rest_framework_social_oauth2',
+    'corsheaders',
     'backend.job',
     'backend.user',
 ]
@@ -55,7 +56,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-	'django.middleware.common.BrokenLinkEmailsMiddleware'
+	'django.middleware.common.BrokenLinkEmailsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -162,6 +164,11 @@ SOCIAL_AUTH_GOOGLE_OAUTH_SECRET = 'nMlG3_IivbXfHWQMdqfxqa6K'
 SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE = ['email']
 
 ALLOWED_HOSTS = ['*']
+
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT=os.path.join(BASE_DIR, "media")
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = (
+    'localhost:3000',
+)

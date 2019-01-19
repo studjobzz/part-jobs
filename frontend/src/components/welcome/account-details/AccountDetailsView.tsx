@@ -9,9 +9,13 @@ import {
   MDBCard,
   MDBCardBody,
   MDBCardHeader,
+  MDBInput,
   MDBBtn,
-  MDBIcon
+  MDBIcon,
+  MDBAvatar,
+  MDBCardUp
 } from "mdbreact";
+
 import { Link } from "react-router-dom";
 
 interface Props {
@@ -51,9 +55,9 @@ export class AccountDetailsView extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = initialState;
-    if (this.props.userStore.user == undefined) {
-      this.props.userStore.loadUserFromLocalStorage();
-    }
+    // if (this.props.userStore.user == undefined) {
+    //   this.props.userStore.loadUserFromLocalStorage();
+    // }
   }
 
   render() {
@@ -89,20 +93,6 @@ export class AccountDetailsView extends React.Component<Props, State> {
               </MDBCardHeader>
 
               <MDBCardBody>
-                {/* <MDBRow>
-                    <MDBCol md = "2"/>
-                    <MDBCol>
-                      <MDBRow>
-                        <MDBCol>
-                          Last name
-                        </MDBCol>
-                        <MDBCol>
-                          <input type="text" className="form-control" value={this.state.lastName} disabled width = "100"/>
-                        </MDBCol>
-                      </MDBRow>
-                    </MDBCol>
-                    <MDBCol md = "4"/>
-                  </MDBRow> */}
                 <MDBRow>
                   <MDBCol md="1" />
                   <MDBCol>
@@ -156,9 +146,9 @@ export class AccountDetailsView extends React.Component<Props, State> {
                         />
                       </dd>
                       <dd className="col-md-2 text-left">
-                        <a href="">
+                        <Link to="change_password">
                           <MDBIcon icon="wrench" className="ml-1" href="" />
-                        </a>
+                        </Link>
                       </dd>
 
                       <dt className="col-sm-4 text-left">Phone number</dt>

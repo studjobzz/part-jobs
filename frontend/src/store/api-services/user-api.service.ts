@@ -60,30 +60,29 @@ export class UserApiService {
   loadProfileUser(access: string) {
     return fetch("http://localhost:8000/api/user/profile", {
       // return fetch("http://localhost:8000/api/job/list", {
-      method: "GET",
+      method: "OPTIONS",
       headers: {
         "Content-Type": "application/json",
-        // Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-        Authorization: "Bearer " + access
+        Authorization: "Bearer " + access,
+        mode: "cors"
       }
     })
       .then(response => response.json())
       .then(data => data);
   }
 
-  // const AuthStr = "Bearer ".concat(access);
-  // Axios.get("http://localhost:8000/api/user/profile", {
-  //   headers: { Authorization: AuthStr }
-  // })
-  //   .then(response => {
-  //     // If request is good...
-  //     debugger;
-  //     console.log(response.data);
+  //   const AuthStr = "Bearer ".concat(access);
+  //   Axios.get("http://localhost:8000/api/user/profile", {
+  //     headers: { Authorization: AuthStr }
   //   })
-  //   .catch(error => {
-  //     console.log("error " + error);
-  //   });
+  //     .then(response => {
+  //       // If request is good...
+  //       debugger;
+  //       console.log(response.data);
+  //     })
+  //     .catch(error => {
+  //       console.log("error " + error);
+  //     });
   // }
 
   update(user: UserCommandViewModel) {

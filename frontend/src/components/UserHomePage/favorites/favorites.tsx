@@ -70,7 +70,7 @@ export class Favorites extends React.Component<Props, State> {
   }
 
   private handleSetFavorites(job: JobViewModel) {
-    this.props.listsStore.addOrUpdateJob(job);
+    // this.props.listsStore.addOrUpdateJob(job);
     return null;
   }
 

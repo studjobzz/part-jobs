@@ -46,15 +46,12 @@ export class JobsList extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = initialState;
+    this.props.listsStore.loadFavorites();
     this.props.listsStore.loadList(() => {
       this.setState({
-        jobs: this.props.listsStore.activeList,
-        dataWasReceived: true
+        dataWasReceived: true,
+        jobs: this.props.listsStore.activeList
       });
-    });
-    this.props.userStore.loadUserProfile(this.state.access, () => {
-      debugger;
-      console.log(this.props.userStore.profileUser);
     });
   }
   newListOfRecipes: JobViewModel[] = [];
@@ -80,7 +77,7 @@ export class JobsList extends React.Component<Props, State> {
   }
 
   handleSetFavorites(job: JobViewModel) {
-    this.props.listsStore.addOrUpdateJob(job);
+    // this.props.listsStore.addOrUpdateJob(job);
   }
 
   private handleFilterByCategory(category: string) {
@@ -117,8 +114,8 @@ export class JobsList extends React.Component<Props, State> {
     return jobs;
   }
 
-  getRecipiesItems(): JobViewModel[] {
-    let result = this.props.listsStore.activeList;
+  getJobsItems(): JobViewModel[] {
+    let result = this.props.listsStore.getList;
     result = this.filterByCategory(this.filterByDifficulty(result));
     return result;
   }
@@ -134,7 +131,7 @@ export class JobsList extends React.Component<Props, State> {
             handleJobsToOmit={this.handleJobsToOmit.bind(this)}
           />
           <JobListView
-            jobs={this.getRecipiesItems.bind(this)()}
+            jobs={this.getJobsItems.bind(this)()}
             jobsToOmit={this.state.jobsToOmit}
             handleSetFavorites={this.handleSetFavorites.bind(this)}
             waitingForData={!this.state.dataWasReceived}

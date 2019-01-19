@@ -18,6 +18,7 @@ import { Form, Input, FormGroup, Label, Col, Row } from "reactstrap";
 import {} from "@blueprintjs/core";
 import { observer, inject } from "mobx-react";
 import { ListsStore } from "src/store/lists-store";
+import { Redirect } from "react-router-dom";
 
 interface Props {
   userStore: UserStore;
@@ -25,6 +26,7 @@ interface Props {
 }
 
 interface State {
+  redirect: string;
   modal1: boolean;
   modal2: boolean;
   username: string;
@@ -33,9 +35,11 @@ interface State {
   lastName: string;
   email: string;
   logged: boolean;
+  access: string;
 }
 
 const initialState: State = {
+  redirect: "",
   modal1: false,
   modal2: false,
   username: "",
@@ -43,7 +47,8 @@ const initialState: State = {
   firstName: "",
   lastName: "",
   email: "",
-  logged: true
+  logged: true,
+  access: localStorage.getItem("logged") || ""
 };
 
 @inject("listsStore")
@@ -71,15 +76,16 @@ export class ModalPage extends React.Component<Props, State> {
       this.setState({ logged: true });
       localStorage.setItem("logged", this.props.userStore.user.access);
     }
-    // this.props.listsStore.loadUserProfile(
-    //   this.props.userStore.user.access,
-    //   () => {
-    //     debugger;
-    //     console.log("proba");
-    //   }
-    // );
+    this.props.listsStore.loadUserProfile(
+      this.props.userStore.user.access,
+      () => {
+        debugger;
+        console.log("proba");
+      }
+    );
     localStorage.setItem("user", JSON.stringify(this.props.userStore.user));
     window.location.href = "/user-home";
+    // this.handleClickState();
   }
 
   private handleUserLogin(): void {
@@ -115,6 +121,16 @@ export class ModalPage extends React.Component<Props, State> {
     ) : null;
   }
 
+  handleRedirect(): React.ReactNode {
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />;
+    }
+    return null;
+  }
+
+  handleClickState() {
+    this.setState({ redirect: "/user-home" });
+  }
   render() {
     return (
       <Container>

@@ -1,6 +1,6 @@
 import { observable, computed, action, toJS } from "mobx";
 import { ListViewModel } from "../view-models/list-jobs";
-import { JobViewModel } from "../view-models/job";
+import { JobViewModel, JobInputModel } from "../view-models/job";
 import ListsApiInstance, {
   ListsApiService
 } from "./api-services/list-api.services";
@@ -13,6 +13,8 @@ export class ListsStore {
   @observable
   activeList: JobViewModel[];
   @observable
+  favoritesList: JobViewModel[];
+  @observable
   profileUser: UserCommandViewModel[];
   @observable
   activeJob: JobViewModel;
@@ -22,7 +24,7 @@ export class ListsStore {
     title: "",
     description: "",
     image: "",
-    favorite: false,
+    validated: false,
     idUser: 0,
     listaAplicanti: []
   };
@@ -32,6 +34,7 @@ export class ListsStore {
   constructor(listsApi: ListsApiService) {
     this.listsApi = listsApi;
     this.activeList = [];
+    this.favoritesList = [];
     this.profileUser = [];
     this.activeJob = this.initialActiveJob;
   }
@@ -57,7 +60,10 @@ export class ListsStore {
   loadList(callback?: Function) {
     this.listsApi
       .getLists()
-      .then(data => (this.activeList = data))
+      .then(data => {
+        this.activeList = data;
+        this.favoritesList.map(job => this.activeList.push(job));
+      })
       .then(() => {
         if (callback != undefined) {
           callback();
@@ -65,15 +71,27 @@ export class ListsStore {
       });
   }
 
-  addOrUpdateJob(job: JobViewModel, callback?: Function) {
+  @action
+  loadFavorites(callback?: Function) {
     this.listsApi
-      .addOrUpdateJob(job)
-      .then(statusCode => (this.statusCode = statusCode))
+      .getFavorites()
+      .then(data => (this.favoritesList = data))
       .then(() => {
         if (callback != undefined) {
           callback();
         }
       });
+  }
+
+  addOrUpdateJob(job: JobInputModel, access: string) {
+    this.listsApi
+      .addOrUpdateJob(job, access)
+      .then(statusCode => (this.statusCode = statusCode));
+    // .then(() => {
+    //   if (callback != undefined) {
+    //     callback();
+    //   }
+    // });
   }
 
   @action
@@ -92,7 +110,7 @@ export class ListsStore {
 
   @computed
   get getFavourites(): JobViewModel[] {
-    return this.activeList.filter(job => job.favorite);
+    return this.favoritesList;
   }
 
   @computed

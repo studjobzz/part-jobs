@@ -28,7 +28,7 @@ const initialState: State = {
     title: "",
     description: "",
     image: "",
-    favorite: false,
+    validated: false,
     idUser: 0,
     listaAplicanti: []
   }

@@ -9,7 +9,9 @@ import FavouritePageRoute from "./components/UserHomePage/favorites";
 import AddJobPageRoute from "./components/JobForm";
 import TabMenu from "./components/TabMenu/TabMenu";
 import AccountDetailsPageRoute from "./components/welcome/account-details";
-// import AccountDetailsEditPageRoute from "./components/welcome/account-details-edit";
+import AccountDetailsEditPageRoute from "./components/welcome/account-details-edit";
+import PasswordEditPageRoute from "./components/welcome/account-change-password";
+
 import JobDetailsPageRoute from "./components/JobDetailsPage";
 import RegisterPageRoute from "./components/Register";
 
@@ -59,15 +61,18 @@ class App extends React.Component<{}, State> {
                     <UserHomePageRoute />
                     <AddJobPageRoute />
                     <AccountDetailsPageRoute />
-                    {/* <AccountDetailsEditPageRoute /> */}
+                    <AccountDetailsEditPageRoute />
                     <JobDetailsPageRoute />
                     <FavouritePageRoute />
+                    <PasswordEditPageRoute />
                   </React.Fragment>
                 ) : (
                   <React.Fragment>
                     <HomeRoute />
+                    <AccountDetailsEditPageRoute />
                     <RegisterPageRoute />
                     <JobDetailsPageRoute />
+                    <PasswordEditPageRoute />
                   </React.Fragment>
                 )}
               </React.Fragment>

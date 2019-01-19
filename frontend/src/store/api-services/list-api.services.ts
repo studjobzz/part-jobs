@@ -1,5 +1,5 @@
 import { ListViewModel } from "../../view-models/list-jobs";
-import { JobViewModel } from "../../view-models/job";
+import { JobViewModel, JobInputModel } from "../../view-models/job";
 import AxiosInstance from "axios";
 import { UserCommandViewModel } from "src/view-models/UserViewModel";
 
@@ -19,7 +19,19 @@ const POST_HEADERS = {
 
 export class ListsApiService {
   getLists(): Promise<JobViewModel[]> {
-    return fetch("http://localhost:8000/api/job/list", {
+    return fetch("http://localhost:8000/api/job/get", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(data => data);
+  }
+
+  getFavorites(): Promise<JobViewModel[]> {
+    return fetch("http://localhost:8000/api/job/lists", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -32,7 +44,7 @@ export class ListsApiService {
 
   loadProfileUser(access: string): Promise<JobViewModel[]> {
     // return fetch("http://localhost:8000/api/user/profile/", {
-    return fetch("http://localhost:8000/api/job/list", {
+    return fetch("http://localhost:8000/api/job/get", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -50,15 +62,17 @@ export class ListsApiService {
       .then(data => data);
   }
 
-  addOrUpdateJob(job: JobViewModel): Promise<number> {
+  addOrUpdateJob(job: JobInputModel, access: string): Promise<number> {
     let header: RequestInit = {
       ...POST_HEADERS,
+      headers: {
+        Authorization: "Bearer " + access
+      },
       body: JSON.stringify(job)
     };
-    return fetch(
-      "http://localhost:8000/api/job/" + job.pk + "update",
-      header
-    ).then(response => response.json());
+    return fetch("http://localhost:8000/api/job/create", header)
+      .then(response => response.json())
+      .catch(error => console.log(error));
   }
 
   deleteRecipe(recipeId: number): Promise<number> {
